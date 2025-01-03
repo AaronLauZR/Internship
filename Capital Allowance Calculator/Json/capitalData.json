@@ -1,0 +1,214 @@
+[
+  {
+    "Plant and Machinery": [
+      {
+        "assetType": "Heavy Machinery",
+        "initialAllowance": "20",
+        "annualAllowance": "20"
+      },
+      {
+        "assetType": "General Plant and Machinery",
+        "initialAllowance": "20",
+        "annualAllowance": "14"
+      },
+      {
+        "assetType": "Other",
+        "initialAllowance": "20",
+        "annualAllowance": "10"
+      },
+      {
+        "assetType": "ICT equipment, computer software including customised software",
+        "initialAllowance": "40",
+        "annualAllowance": "20"
+      }
+    ]
+  },
+  {
+    "Motor Vehicle": [
+      {
+        "assetType": "Used Non-Commercialized Vehicle",
+        "initialAllowance": "20",
+        "annualAllowance": "20",
+        "allowanceCap": "50000"
+      },
+      {
+        "assetType": "New Non-Commercialized Vehicle with value < 100000",
+        "initialAllowance": "20",
+        "annualAllowance": "20",
+        "allowanceCap": "100000"
+      },
+      {
+        "assetType": "New Non-Commercialized Vehicle with value > 100000",
+        "initialAllowance": "20",
+        "annualAllowance": "20",
+        "allowanceCap": "100000"
+      },
+      {
+        "assetType": "New Non-Commercialized Vehicle with value > 150000",
+        "initialAllowance": "20",
+        "annualAllowance": "20",
+        "allowanceCap": "50000"
+      }
+    ]
+  },
+  {
+    "Industrial Building": [
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Industrial facilities, Utility Structures, Farm/Mine buildings",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Buildings included in the definition of ‘factory’",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Storage building related structures",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Research building",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Warehouse",
+        "initialAllowance": "0",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Building used for an approved service project",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Buildings on a build-lease-transfer basis",
+        "initialAllowance": "10",
+        "annualAllowance": "6"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Buildings for MSC status companies",
+        "initialAllowance": "0",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Buildings for BioNexus status companies",
+        "initialAllowance": "0",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Privatization project and private financing buildings",
+        "initialAllowance": "10",
+        "annualAllowance": "6"
+      },
+      {
+        "assetGroup": "Commercial Building",
+        "assetType": "Commercial building in TRX for TRX Marquee status company",
+        "initialAllowance": "0",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Employee Benefit",
+        "assetType": "Building for the facility of employee",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Employee Benefit",
+        "assetType": "Building for worker welfare and employee living quarters on a farm",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Employee Benefit",
+        "assetType": "Building used as living accomodation for employees",
+        "initialAllowance": "40",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Employee Benefit",
+        "assetType": "Employee housing in manufacturing, hotel, tourism, or approved services project",
+        "initialAllowance": "0",
+        "annualAllowance": "10"
+      },
+      {
+        "assetGroup": "Employee Benefit",
+        "assetType": "Child care centre provided by an employer",
+        "initialAllowance": "0",
+        "annualAllowance": "10"
+      },
+      {
+        "assetGroup": "Public Utilities",
+        "assetType": "Licensed private hospital, maternity home and nursing home",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Public Utilities",
+        "assetType": "Hotel",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Public Utilities",
+        "assetType": "Airport",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Public Utilities",
+        "assetType": "Motor Racing Circuit",
+        "initialAllowance": "10",
+        "annualAllowance": "3"
+      },
+      {
+        "assetGroup": "Public Utilities",
+        "assetType": "Public Road",
+        "initialAllowance": "10",
+        "annualAllowance": "6"
+      },
+      {
+        "assetGroup": "Social Welfares",
+        "assetType": "Building for old folks care centre.",
+        "initialAllowance": "0",
+        "annualAllowance": "0"
+      },
+      {
+        "assetGroup": "Social Welfares",
+        "assetType": "Building for kindergarten",
+        "initialAllowance": "0",
+        "annualAllowance": "10"
+      },
+      {
+        "assetGroup": "Social Welfares",
+        "assetType": "Building for child care centre",
+        "initialAllowance": "0",
+        "annualAllowance": "10"
+      },
+      {
+        "assetGroup": "Education Purpose",
+        "assetType": "Buildings for schools or educational institutions",
+        "initialAllowance": "0",
+        "annualAllowance": "10"
+      },
+      {
+        "assetGroup": "Education Purpose",
+        "assetType": "Buildings for industrial, technical or vocational training",
+        "initialAllowance": "0",
+        "annualAllowance": "10"
+      }
+    ]
+  }
+]

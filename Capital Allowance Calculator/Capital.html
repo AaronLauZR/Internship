@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL Capial Allowance Calculator</title>
+
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="CSS/capital.css" />
+
+    <!-- Import bootstrap 4.6 -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="CSS/print.css" media="print" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Import jQuery-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+    <!-- Import CSS -->
+    <style>
+        [id^="groupBody"] :hover {
+            background-color: #336ad3;
+            color: black;
+            padding-top: 0px;
+            color: white;
+        }
+
+        [id^="groupBody"] {
+            background-color: white;
+            color: black;
+            padding: 0px 0px;
+            margin-top: 0px;
+            border: none;
+            border-radius: 0.25rem;
+            padding-top: 0px;
+            display: none;
+            position: static;
+            height: 113px;
+            width: inherit;
+            box-shadow: none;
+        }
+
+        [id^="groupHeader"] {
+            color: black;
+            font-weight: 500;
+            padding-bottom: 0px;
+            padding-left: 7px;
+            background-color: #f3e3fe;
+        }
+
+        [id^="groupHeader"]:hover {
+            letter-spacing: 0.4px;
+            transition: all 0.4s ease 0s;
+            background-color: #6d3b7e;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="background-color: #a97beeb8; padding: 50px 0px 50px 0px;">
+        <div class="d-flex d-print-none flex-column flex-lg-row mx-auto" style="max-width: 1600px;">
+            <div class="col-12 col-lg-6 text-center d-block" style="height: 400px;">
+                <img decoding="async" class="article-pic img-fluid"
+                    src="https://cdn.sql.com.my/wp-content/uploads/2020/09/bik.png" alt="" style="max-height: 400px;">
+            </div>
+            <div class="col-12 col-lg-6 p-3 d-flex justify-content-center align-items-center">
+                <div style="padding: 5%; " class="text-center">
+                    <h1 class="page-title-2 text-white">Capital Allowance</h1>
+                    <div class="page-subtitle-2 text-white ls-2"></div>
+                    <div class="page-desc-2 text-white text-left">Capital Allowance is used as a subsidy to for the
+                        depreciation of fixed assets. Capital allowance is given to reduce the tax payable for the
+                        capital.</div>
+                    <br>
+
+                    <div class="d-flex flex-column flex-md-row justify-content-center">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="justify-content-center d-none d-flex d-print-flex">
+        <img class="d-none d-print-flex" decoding="async"
+            src="https://cdn.sql.com.my/wp-content/uploads/2023/12/New-SQL-Logo.png" alt="sql-logo"
+            style="height: 60px; width: auto" />
+    </div>
+    <!-- Start Content -->
+    <div class="container-fluid pt-5">
+
+        <!-- Title -->
+        <div class="d-print-none text-center">
+            <h1 class="font-24 text-dark mb-0">
+                <svg class="mr-2" id="fi_4836878" height="32" viewBox="0 0 32 32" width="32"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-name="Layer 37">
+                    <linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="5.31" x2="26.69" y1="5.31"
+                        y2="26.69">
+                        <stop offset="0" stop-color="#fdc830"></stop>
+                        <stop offset="1" stop-color="#f37335"></stop>
+                    </linearGradient>
+                    <path
+                        d="m29.969 16a5.009 5.009 0 0 1 .45-1.56 4.4 4.4 0 0 0 .44-3.09 4.785 4.785 0 0 0 -2.28-2.29 5.263 5.263 0 0 1 -1.29-.96 4.714 4.714 0 0 1 -.57-1.48 4.648 4.648 0 0 0 -1.55-2.77 5 5 0 0 0 -3.169-.54 5.335 5.335 0 0 1 -1.69-.08 4.975 4.975 0 0 1 -1.34-.85 4.934 4.934 0 0 0 -2.97-1.38 4.934 4.934 0 0 0 -2.97 1.38 4.975 4.975 0 0 1 -1.34.85 5.335 5.335 0 0 1 -1.69.08 5 5 0 0 0 -3.17.54 4.648 4.648 0 0 0 -1.55 2.77 4.714 4.714 0 0 1 -.57 1.48 5.386 5.386 0 0 1 -1.28.96 4.762 4.762 0 0 0 -2.29 2.29 4.4 4.4 0 0 0 .44 3.09 5.009 5.009 0 0 1 .451 1.56 5.009 5.009 0 0 1 -.45 1.56 4.4 4.4 0 0 0 -.44 3.09 4.784 4.784 0 0 0 2.28 2.29 5.263 5.263 0 0 1 1.29.96 4.714 4.714 0 0 1 .57 1.48 4.648 4.648 0 0 0 1.55 2.77 5 5 0 0 0 3.17.54 5.336 5.336 0 0 1 1.69.08 4.977 4.977 0 0 1 1.34.85 4.934 4.934 0 0 0 2.969 1.38 4.934 4.934 0 0 0 2.97-1.38 4.977 4.977 0 0 1 1.34-.85 5.336 5.336 0 0 1 1.69-.08 5 5 0 0 0 3.17-.54 4.648 4.648 0 0 0 1.55-2.77 4.714 4.714 0 0 1 .57-1.48 5.386 5.386 0 0 1 1.28-.96 4.762 4.762 0 0 0 2.29-2.29 4.4 4.4 0 0 0 -.44-3.09 5.009 5.009 0 0 1 -.451-1.56zm-17.969 3a1.008 1.008 0 0 1 -.71.96.966.966 0 0 1 -.29.04.984.984 0 0 1 -.83-.45l-2.17-3.25v2.7a1 1 0 1 1 -2 0v-6a1.008 1.008 0 0 1 .71-.96.992.992 0 0 1 1.12.41l2.17 3.25v-2.7a1 1 0 1 1 2 0zm5-4a1 1 0 0 1 0 2h-2v1h2a1 1 0 0 1 0 2h-3a1 1 0 0 1 -1-1v-6a1 1 0 0 1 1-1h3a1 1 0 0 1 0 2h-2v1zm7.989 4.16a1.018 1.018 0 0 1 -.89.84h-.099a1.017 1.017 0 0 1 -.94-.65l-.56-1.5-.56 1.5a1 1 0 0 1 -1.93-.19l-1-6a1 1 0 1 1 1.98-.32l.38 2.32.19-.51a1 1 0 0 1 1.88 0l.19.51.38-2.32a1 1 0 1 1 1.98.32z"
+                        fill="url(#linear-gradient)"></path>
+                </svg>
+                SQL Professional Fixed Asset Calculator Malaysia<br>for Capital Allowance 2024
+            </h1>
+        </div>
+
+        <div class="mx-auto" style="max-width: 1000px;">
+
+            <!--Form Container-->
+            <form id="loan_calc" class="d-print-none" action="#resultSection" method="POST">
+                <div class="mt-5">
+
+                    <!-- Container Title -->
+                    <div class="mx-auto font-16 font-weight-500 bgc-purple-100 p-4 container-head">
+                        Asset Details
+                    </div>
+
+                    <!-- Container Details -->
+                    <div class="pt-5 pb-4" style="border: solid #f6f0ff; border-width: 0px 2px 2px 2px">
+                        <div class="px-4">
+
+                            <!-- Asset Category -->
+                            <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                <div class="col-lg-5 p-0">
+                                    <label class="mb-lg-0" for="assetCat">Asset Category</label>
+                                    <small class="d-lg-none text-muted"></small>
+                                    <a href="Images/capital allowance table.jpg" tabindex="-1">
+                                        <i class="fa fa-info-circle text-primary ml-2 opacity-80"></i>
+                                    </a><br>
+                                </div>
+
+                                <div
+                                    class="col-lg-7 p-0 pl-lg-5 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                    <select class="form-control default" name="assetCat" id="assetCat"
+                                        style="color: rgb(175, 175, 175)" value="">
+
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <!-- Asset Type-->
+                            <div data-id="assetTypeCollapse" id="assetTypeCollapse" class="collapse">
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <label class="mb-lg-0" for="assetType">Asset Type</label>
+                                        <small class="d-lg-none text-muted"></small>
+                                        <a href="Images/capital allowance table.jpg" tabindex="-1">
+                                            <i class="fa fa-info-circle text-primary ml-2 opacity-80"></i>
+                                        </a><br>
+                                    </div>
+                                    <div
+                                        class="col-lg-7 p-0 pl-lg-5 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                        <div class="dropdown" style="width: inherit;">
+                                            <button class="form-control" type="button" id="assetTypeDropdown"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                style="background-color: #f2f3f5 !important; color: rgb(175, 175, 175); border: none; 
+                                                       border-radius: 8px !important; margin-top:0.5rem; padding-left: 1rem; padding-right:0px; display:flex;justify-content: space-between;">
+                                                <span id="dropdownText">Select Asset Type</span>
+                                                <i class="bx bx-chevron-down" id="arrow-down"
+                                                    style="height:inherit; padding-top: 2.5px; color: black; font-weight: lighter; font-size: 17.8px;"></i>
+                                            </button>
+                                            <div class="dropdown-menu"
+                                                style="border-radius: 8px; border: 2px solid #c6c6c6; height: auto; max-height: 300px;"
+                                                aria-labelledby="assetTypeDropdown" id="assetTypeContainer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tax Allowances Rate -->
+                            <div data-id="allowanceRateCollapse" id="allowanceRateCollapse" class="collapse">
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover"
+                                            tabindex="-1"
+                                            data-content="The rate of tax allowances for the selected asset type."
+                                            data-original-title=""><label data-type="number" for="prs">Tax Allowances
+                                                Rate (%)
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <!-- Initial Allowance -->
+                                    <div
+                                        class="col-lg-7 p-0 pl-lg-2 pr-lg-0 d-lg-flex align-items-center justify-content-between position-relative">
+                                        <div class="d-lg-block mr-lg-3 font-weight-600"
+                                            style="display: flex; align-items: center; height:100%;">
+                                            <span class="p-1">I.A</span>
+                                        </div>
+                                        <input style="text-align: right" type="number"
+                                            class="form-control default number has-validation pl-2" id="iaRate"
+                                            name="iaRate" min="0" onkeypress="return !(event.charCode == 46)" step="1"
+                                            value="0" onfocus="this.select()" required />
+
+                                        <div class="invalid-feedback pl-lg-5"></div>
+
+                                        <div class="d-none d-lg-block mr-lg-3" style="width: 10px;"></div>
+
+                                        <!-- Annual Allowance -->
+                                        <div class="d-lg-block mr-lg-3 font-weight-600"
+                                            style="display: flex; align-items: center">
+                                            <span class="p-1">A.A</span>
+                                        </div>
+                                        <input style="text-align: right" type="number"
+                                            class="form-control default number has-validation pl-2" id="aaRate"
+                                            name="aaRate" min="0" onkeypress="return !(event.charCode == 46)" step="1"
+                                            value="0" onfocus="this.select()" required />
+
+                                        <div class="invalid-feedback pl-lg-5"></div>
+
+                                        <input type="text" id="allowanceCap" class="d-none" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Asset Cost -->
+                            <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                <div class="col-lg-5 p-0">
+                                    <a data-toggle="popover" data-container="body" data-trigger="hover" tabindex="-1"
+                                        data-content="The total price of asset."><label data-type="number"
+                                            for="assetCost">Asset Cost
+                                        </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                </div>
+
+                                <div
+                                    class="col-lg-7 p-0 pl-lg-0 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                    <div class="input-group" style="display: flex; align-items: center">
+                                        <div class="d-lg-block mr-lg-3 font-weight-600"
+                                            style="display: flex; align-items: center">
+                                            <span class="p-1">RM</span>
+                                        </div>
+                                        <input style="text-align: right" type="number"
+                                            class="form-control default number has-validation pl-2" id="assetCost"
+                                            name="assetCost" min="0" onkeypress="return !(event.charCode == 46)"
+                                            step="10" value="0" onfocus="this.select()" required />
+
+                                        <div class="invalid-feedback pl-lg-5"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Acquire Date-->
+                            <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                <div class="col-lg-5 p-0">
+                                    <a data-toggle="popover" data-container="body" data-trigger="hover" tabindex="-1"
+                                        data-content="The purchase data for asset."><label data-type="number"
+                                            for="acquireDate">Acquire Date
+                                        </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                </div>
+
+                                <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                    <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control default has-validation" id="acquireDate"
+                                            name="acquireDate" required />
+
+                                        <div class="invalid-feedback pl-lg-5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox for Hire Purchase -->
+                        <div
+                            class="form-check form-check-inline mt-4 custom-control custom-checkbox checkbox-right form-control-sm px-4 d-flex align-items-center">
+                            <input class="form-check-input custom-control-input" type="checkbox" id="hirePurchaseChkBx"
+                                name="hirePurchaseChkBx" value="1" />
+                            <label class="form-check-label custom-control-label opacity-80" for="hirePurchaseChkBx">
+                                Hire purchase loan?
+                            </label>
+                        </div>
+
+                        <!-- Hire Purchase Collapsed -->
+                        <div data-id="hirePurchaseCollapse" id="hirePurchaseCollapse" class="collapse"
+                            style="margin-top: 25px;">
+                            <div class="px-4">
+
+                                <!-- Down Payment-->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover"
+                                            tabindex="-1" data-content="The total price of asset."><label
+                                                data-type="number" for="downPayment">Down Payment
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div
+                                        class="col-lg-7 p-0 pl-lg-0 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                        <div class="input-group" style="display: flex; align-items: center">
+                                            <div class="d-lg-block mr-lg-3 font-weight-600"
+                                                style="display: flex; align-items: center">
+                                                <span class="p-1">RM</span>
+                                            </div>
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation pl-2" id="downPayment"
+                                                name="downPayment" min="0" onkeypress="return !(event.charCode == 46)"
+                                                step="10" value="0" onfocus="this.select()" required />
+
+                                            <div class="invalid-feedback pl-lg-5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Interest -->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover"
+                                            tabindex="-1" data-content="Interest of the loan."><label data-type="number"
+                                                for="interest">Interest (%)
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                        <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                        <div class="input-group" style="display: flex; align-items: center">
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation" id="interest"
+                                                name="interest" min="1" onkeypress="return !(event.charCode == 46)"
+                                                step="1" value="1" onfocus="this.select()" required />
+
+                                            <div class="invalid-feedback pl-lg-5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Installment Period -->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover"
+                                            tabindex="-1" data-content="The years allocated to repay the loan."><label
+                                                data-type="number" for="numInstallment">Installment
+                                                Period
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                        <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                        <div class="input-group" style="display: flex; align-items: center">
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation" id="numInstallment"
+                                                name="numInstallment" min="1"
+                                                onkeypress="return !(event.charCode == 46)" step="1" value="1"
+                                                onfocus="this.select()" required />
+                                            <span style="margin-left: 20px; width: 60px">Year(s)</span>
+
+                                            <div class="invalid-feedback pl-lg-5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox for Diposal -->
+                        <div
+                            class="form-check form-check-inline mt-4 custom-control custom-checkbox checkbox-right form-control-sm px-4 d-flex align-items-center">
+                            <input class="form-check-input custom-control-input" type="checkbox" id="disposalChkBx"
+                                name="disposalChkBx" value="1" />
+                            <label class="form-check-label custom-control-label opacity-80" for="disposalChkBx">
+                                Asset disposal?
+                            </label>
+                        </div>
+
+                        <!-- Diposal Collapsed-->
+                        <div data-id="disposalCollapse" id="disposalCollapse" class="collapse"
+                            style="margin-top: 25px;">
+                            <div class="px-4">
+
+                                <!-- Diposal Value -->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover"
+                                            tabindex="-1" data-content="The total price of asset."><label
+                                                data-type="number" for="disposalValue">Diposal Amount
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div
+                                        class="col-lg-7 p-0 pl-lg-0 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                        <div class="input-group" style="display: flex; align-items: center">
+                                            <div class="d-lg-block mr-lg-3 font-weight-600"
+                                                style="display: flex; align-items: center">
+                                                <span class="p-1">RM</span>
+                                            </div>
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation pl-2"
+                                                id="disposalValue" name="disposalValue" min="0"
+                                                onkeypress="return !(event.charCode == 46)" step="10" value="0"
+                                                onfocus="this.select()" required />
+
+                                            <div class="invalid-feedback pl-lg-5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Diposal Date-->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover"
+                                            tabindex="-1" title=""
+                                            data-content="The starting date of the loan applied."><label
+                                                data-type="number" for="diposalDate">Diposal Date
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                        <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                        <div class="input-group">
+                                            <input type="date" class="form-control default has-validation"
+                                                id="diposalDate" name="diposalDate" required />
+
+                                            <div class="invalid-feedback pl-lg-5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fiscal year-->
+                        <!-- Checkbox for Fy -->
+                        <div
+                            class="form-check form-check-inline mt-4 custom-control custom-checkbox checkbox-right form-control-sm px-4 d-flex align-items-center">
+                            <input class="form-check-input custom-control-input" type="checkbox" id="fyChkBx"
+                                name="fyChkBx" value="1" />
+                            <label class="form-check-label custom-control-label opacity-80" for="fyChkBx">
+                                Cut off by financial year
+                            </label>
+                        </div>
+
+                        <!-- Fy Collapsed-->
+                        <div data-id="fyCollapse" id="fyCollapse" class="collapse" style="margin-top: 25px;">
+                            <div class="px-4">
+
+                                <!-- Financial Month-->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover"
+                                            tabindex="-1" title=""
+                                            data-content="The starting date of the loan applied."><label
+                                                data-type="number" for="fyMonth">Financial Start Month
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                        <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                        <div class="input-group">
+                                            <input type="month" class="form-control default has-validation" id="fyMonth"
+                                                name="fyMonth" required />
+
+                                            <div class="invalid-feedback pl-lg-5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Calculate Button -->
+        <div id="resultSection">
+            <div class="d-flex justify-content-center mt-4 d-print-none ">
+                <button type="submit" name="btnCalculate" class="purple-btn mx-3" id="btnCalculate"
+                    style="margin-bottom: 5rem;">
+                    Calculate
+                </button>
+            </div>
+        </div>
+    </div>
+    <a id="result"></a>
+    <div class="container" style = "overflow-x: auto;">
+        <div class="row justify-content-md-center">
+            <table id="caTable"
+                class="d-none table-striped table-bordered justify-content-md-center table-hover d-print-none">
+                <thead class="thead-dark ">
+                    <tr>
+                        <th rowspan="2" style="vertical-align: middle; border-right: 1px solid black;">Year of
+                            Assessment</th>
+                        <th colspan="3">Qualifying Expenditure</th>
+                        <th colspan="3">Tax Written Down Value</th>
+                        <th colspan="4">Capital Allowance</th>
+                        <th rowspan="2" style="vertical-align: middle;">Tax Written Down Value C/F</th>
+                    </tr>
+                    <tr>
+                        <th style="vertical-align: middle;">B/F</th>
+                        <th>Additional</th>
+                        <th style="vertical-align: middle;">C/F</th>
+                        <th style="vertical-align: middle;">B/F</th>
+                        <th>Additional</th>
+                        <th style="vertical-align: middle;">Total</th>
+                        <th>I.A Rate (%)</th>
+                        <th style="vertical-align: middle;">I.A</th>
+                        <th>A.A Rate (%)</th>
+                        <th style="vertical-align: middle;">A.A</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-md-center ">
+            <table id="caSummaryTable" class="table table-light table-bordered justify-content-md-center"
+                style="display: none; border: 2px solid rgb(150, 148, 148) !important">
+                <thead class="thead-dark" style="border:none">
+                    <tr>
+                        <th style="vertical-align: middle;">Year of Assessment</th>
+                        <th style="vertical-align: middle;">Qualifying Expenditure</th>
+                        <th style="vertical-align: middle;">Tax Written Down B/F</th>
+                        <th style="vertical-align: middle;">Additional</th>
+                        <th style="vertical-align: middle;">I.A <span id="initialRate"></span></th>
+                        <th style="vertical-align: middle;">A.A <span id="annualRate"></span></th>
+                        <th style="vertical-align: middle;">Tax Written Down C/F</th>
+
+                    </tr>
+                </thead>
+                <tbody id="summaryTableBody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="container-sm" id="disposalContainer" style="display:none">
+        <div class="justify-content-sm-center text-center">
+            <table id="disposalTable" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Disposal Amount</th>
+                        <td id="disposalAmount">-</td>
+                    </tr>
+                    <tr>
+                        <th>Residual Expenditure</th>
+                        <td id="residualExpenditure">-</td>
+                    </tr>
+                    <tr>
+                        <th>Balancing Charge</th>
+                        <td id="balancingCharge">-</td>
+                    </tr>
+                    <tr>
+                        <th>Balancing Allowance</th>
+                        <td id="balancingAllowance">-</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-print-none d-none d-flex justify-content-center">
+        <a class="btn dark-outline-btn py-2 px-4 d-none printButtons" style = "padding: 15px 35px !important; border-radius: 0px; border: solid 1px #333 !important;" onclick=printPage()>Print Details</a>
+        <a class="btn dark-outline-btn py-2 px-4 d-none printButtons" style = "padding: 15px 35px !important; border-radius: 0px; border: solid 1px #333 !important;" onclick=printSummary()>Print Summary</a>
+    </div>
+    <!-- Footer -->
+    <div class="justify-content-center d-none d-flex d-print-flex">
+        <img class="d-none d-print-flex" decoding="async"
+            src="https://cdn.sql.com.my/wp-content/uploads/2019/03/sql.png" alt="sql-footer-logo"
+            style="height: 60px; width: auto" />
+    </div>
+
+
+    <script>
+
+        // Fetch Json Data to Asset Category
+        function fetchAssetCat() {
+            var jsonFilePath = "Json/capitalData.json";
+            fetch(jsonFilePath)
+                .then(response => response.json())
+                .then(data => {
+                    populateDropdown(data, 'assetCat');
+                })
+                .catch(error => console.error('Error fetching local JSON:', error));
+        }
+
+        // Preloaded Data for Asset Category
+        $(document).ready(function () {
+            fetchAssetCat();
+        });
+
+        // Populate Dropdown for Asset Category with JSON data
+        function populateDropdown(jsonData, fieldID) {
+            var dropdown = document.getElementById(fieldID);
+
+            dropdown.innerHTML = '';
+
+            var disabledOption = document.createElement("option");
+            disabledOption.text = "Select an Asset Category";
+            $('#assetCat').value = "";
+            disabledOption.disabled = true;
+            disabledOption.selected = true;
+            disabledOption.style.fontWeight = "semi-bold";
+            disabledOption.style.color = "lightgrey";
+            dropdown.add(disabledOption);
+
+            jsonData.forEach(function (item) {
+                console.log()
+                var option = document.createElement("option");
+                option.value = Object.keys(item)[0];
+                option.text = Object.keys(item)[0];
+                option.style.color = "black";
+                dropdown.appendChild(option);
+            });
+        }
+
+        // Event Listener for Change Event on Asset Category Dropdown to Fetch Asset Type
+        $('#assetCat').on('change', function () {
+            var selectedValue = $(this).val();
+            $(this).css('color', 'black');
+
+            fetchAssetType(selectedValue);
+            $('#assetTypeCollapse').collapse('show');
+        });
+
+        var previous_index = -1;
+
+        // Fetch Json Data to Asset Type
+        function fetchAssetType(selectedValue) {
+            var jsonFilePath = 'Json/capitalData.json';
+
+            fetch(jsonFilePath)
+                .then(response => response.json())
+                .then(data => {
+                    var filteredData = data.filter(category => category[selectedValue]);
+                    $("#assetTypeDropdown").val(""); // Clear previous entries
+                    $("#assetTypeContainer").empty();
+                    $('#dropdownText').text("Select an Asset Type"); // Update button text
+                    $('#dropdownText').css('color', 'lightgrey');
+                    $('#arrow-down').css('color', 'lightgrey');
+
+
+
+                    if (filteredData) {
+                        populateAssetType(filteredData);
+                    } else {
+                        console.error('Category with selected key not found');
+                    }
+                })
+                .catch(error => console.error('Error fetching local JSON:', error));
+        }
+
+        // Populate Dropdown for Asset Type with JSON data
+        function populateAssetType(filteredData) {
+            var assets = Object.values(filteredData[0])[0];
+
+            $("#assetTypeContainer").empty();
+            var placeholderItem = $(`<div class='dropdown-header' style=''>Select Asset Type</div>`);
+            $("#assetTypeContainer").append(placeholderItem);;
+
+            var processedGroups = new Set();
+
+            assets.forEach((asset, index) => {
+                if (asset.hasOwnProperty("assetGroup") && !processedGroups.has(asset.assetGroup)) {
+                    processedGroups.add(asset.assetGroup);
+                    var groupHeader = $(`<button class="dropdown-item" type="button" id="groupHeader${index}" style=""; > ${asset.assetGroup}</button >`);
+                    var groupBody = $(`<div id="groupBody${index}" class="dropdown-menu" aria-labelledby="groupHeader${index}" style=""></div>`);
+
+                    $("#assetTypeContainer").append(groupHeader);
+                    groupHeader.after(groupBody); // Place the groupBody right after the groupHeader in the DOM
+
+                    // Handle hover to show asset types
+                    groupHeader.hover(
+                        function () { // Mouse enter
+                            $(`#groupBody${index}`).show()
+                            if (previous_index != -1) {
+                                $(`#groupBody${previous_index}`).hide();
+                                console.log(index)
+
+                            }
+                            previous_index = index;
+                            console.log(index)
+                        },
+                        function () { // Mouse leave
+                            $(`#groupBody${index}`).show();
+                        }
+                    );
+
+                    assets.filter(a => a.assetGroup === asset.assetGroup).forEach(a => {
+                        var typeItem = $(`<button class="dropdown-item type-item" type="button">${a.assetType}</button>`);
+                        typeItem.on('click', function () {
+                            $('#dropdownText').text(a.assetType); // Update button text
+                            $('#dropdownText').css('color', 'black');
+                            $('#assetTypeDropdown').val(a.assetType); // Update button value
+                            $('#arrow-down').css('color', 'black');
+                            $(`#groupBody${index}`).hide(); // Hide the asset types on selection
+                            assetTypeChange();
+                        });
+                        groupBody.append(typeItem);
+                    });
+                } else if (!asset.hasOwnProperty("assetGroup")) {
+                    var typeItem = $(`<button class="dropdown-item type-item" type="button">${asset.assetType}</button>`);
+                    typeItem.on('click', function () {
+                        $('#dropdownText').text(asset.assetType); // Update button text
+                        $('#dropdownText').css('color', 'black');
+                        $('#arrow-down').css('color', 'black');
+                        $('#assetTypeDropdown').val(asset.assetType); // Update button text
+
+                        assetTypeChange();
+                    });
+                    $("#assetTypeContainer").append(typeItem);
+                }
+            });
+        }
+
+        async function getAllowanceInfo(assetCat, assetType) {
+            var jsonFilePath = 'Json/capitalData.json';
+
+            try {
+                var response = await fetch(jsonFilePath);
+                var data = await response.json();
+
+                var filteredData = data.filter(category => category[assetCat]);
+                console.log(filteredData)
+                if (filteredData.length > 0) {
+                    var categoryData = Object.entries(filteredData[0])[0][1];
+                    console.log(categoryData)
+                    console.log(assetType);
+                    var allowanceData = categoryData.filter(item => item.assetType == assetType);
+                    console.log(allowanceData);
+                    if (allowanceData.length > 0) {
+                        const allowance = [
+                            allowanceData[0].initialAllowance,
+                            allowanceData[0].annualAllowance,
+                            allowanceData[0].hasOwnProperty('allowanceCap') ? allowanceData[0].allowanceCap : undefined];
+                        return allowance;
+                        console.log(allowance)
+                    } else {
+                        throw new Error('Asset type not found in the selected category');
+                    }
+                } else {
+                    throw new Error('Category with selected key not found');
+                }
+            } catch (error) {
+                throw new Error('Error fetching JSON: ' + error.message);
+            }
+        }
+
+        // Event Listener for Asset Type Dropdown to Fetch and Expend Allowances Rate
+        async function assetTypeChange() {
+            let selectedType = $('#assetTypeDropdown').val();
+            let selectedCat = $('#assetCat').val();
+            // $(this).css('color', 'black');
+
+            console.log('try');
+            allowance = await getAllowanceInfo(selectedCat, selectedType);
+
+            $('.hidden').css('display', 'flex');
+            $('#iaRate').val(allowance[0]);
+            $('#aaRate').val(allowance[1]);
+            $('#allowanceCap').val(allowance[2]);
+            $('#allowanceRateCollapse').collapse('show');
+        };
+
+        // Activate Installment Checkbox
+        $("#hirePurchaseChkBx").change(function () {
+            $("#hirePurchaseCollapse").collapse("toggle");
+        });
+
+        // Activate Disposal Checkbox
+        $("#disposalChkBx").change(function () {
+            $("#disposalCollapse").collapse("toggle");
+        });
+
+        // Activate Fy Checkbox
+        $("#fyChkBx").change(function () {
+            $("#fyCollapse").collapse("toggle");
+        });
+
+        // tooltip
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+
+            $("#resultAccordion")
+                .on("show.bs.collapse", function (event) {
+                    $(event.target)
+                        .prev(".accordion-header")
+                        .find(".collapse-icon i")
+                        .removeClass("fa-angle-down")
+                        .addClass("fa-angle-up");
+                })
+                .on("hide.bs.collapse", function (event) {
+                    $(event.target)
+                        .prev(".accordion-header")
+                        .find(".collapse-icon i")
+                        .removeClass("fa-angle-up")
+                        .addClass("fa-angle-down");
+                });
+        });
+
+        function printPage() {
+            // $('#print-result').removeClass('d-print-block');
+            $('#caSummaryTable').addClass('d-print-none');
+            $('#caTable').addClass('d-print-block');
+            // $("#tax-result").text('Date Printed: ' + formatDate(new Date()));
+            window.print();
+        };
+
+        function printSummary() {
+            $('#caSummaryTable').removeClass('d-print-none');
+            // $('#print-result').addClass('d-print-block');
+            $('#caTable').removeClass('d-print-block');
+            // $("#tax-result").text('Date Printed: ' + formatDate(new Date()));
+            window.print();
+        };
+
+    </script>
+    <script type="module" src="JavaScript/calculateEffectiveRate.js"></script>
+    <script type="module" src="JavaScript/capital.js"></script>
+</body>
+
+</html>

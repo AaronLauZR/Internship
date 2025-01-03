@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL Capital Allowance Calculator</title>
+
+    <!-- Import Icon -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Import Bootstrap Datepicker -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <!-- CSS -->
+    <style>
+        #assetTypeDropdown, select.form-control.is-invalid {
+            padding-right: 3rem !important;
+            background-position: right 1.5rem center;
+        }
+        
+        .datepicker::before {
+            display: none;
+        }
+        
+        .datepicker {
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        .datepicker::-webkit-scrollbar {
+           display: none;
+        }
+
+        .datepicker::-webkit-scrollbar-track {
+            display: none;
+        }
+
+        .datepicker::-webkit-scrollbar-thumb {
+            display: none;
+        }
+
+        .datepicker::-webkit-scrollbar-thumb:hover {
+            display: none;
+        }
+    
+            
+        [id^="groupBody"] :hover {
+            background-color: #336ad3;
+            padding-top: 0px;
+            color: white;
+        }
+
+        [id^="groupBody"] {
+            background-color: white;
+            color: black;
+            padding: 0px 0px;
+            margin-top: 0px;
+            border: none;
+            padding-top: 0px;
+            display: none;
+            position: static;
+            height: fit-content;
+            max-height: 100px !important;
+            font-size: 14px;
+            border-radius: 0px;
+
+        }
+
+        [id^="groupHeader"] {
+            color: black;
+            font-size: 14px;
+            font-weight: 500;
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            padding-left: 21px !important;
+            background-color: #dcdcdc;
+        }
+
+        [id^="groupHeader"]:hover {
+            letter-spacing: 0.1px;
+            transition: all 0.2s ease 0s;
+            background-color: #808080;
+            color: white;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif !important;
+            font-size: 14px;
+            font-weight: 400px;
+        }
+
+        #loan_calc .form-control.number {
+            font-family: "Open Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .bg-purple-200 {
+            background-color: #caabdb;
+            color: white;
+        }
+
+        .bg-purple-300 {
+            background-color: #9e85ac;
+            color: white;
+        }
+
+        .margin-right {
+            margin-right: 10px;
+        }
+
+        .form-control {
+            font-size: 14px;
+        }
+
+        .opacity-0 {
+            opacity: 0 !important;
+        }
+
+        .btn {
+            letter-spacing: 2px;
+            padding: 15px 15px !important;
+            white-space: normal !important;
+        }
+
+        #btnCalculate {
+            margin: 5px 10px;
+            letter-spacing: 2px;
+            padding: 15px 35px !important;
+            white-space: normal !important;
+        }
+
+        #result_table tbody tr td:first-child {
+            background-color: #f9efff;
+        }
+
+        #result_table tbody {
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion-header {
+            background-color: #e8dff4 !important;
+        }
+
+        .accordionResult :hover {
+            text-decoration: none !important;
+            color: #6a3e7f !important;
+        }
+
+        .accordionResult :focus {
+            text-decoration: none !important;
+            color: #6a3e7f !important;
+        }
+
+        .btn-accordion[aria-expanded="true"] .bx.bx-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        .btn-link:hover{
+            text-decoration: none;
+        }
+        
+        .btn-link:focus{
+            text-decoration: none;
+        }
+
+        .headerTitle {
+            color: black !important;
+        }
+
+        .hidden-result {
+            display: none;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .invalid-feedback {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+        }
+
+        .p-2 {
+            padding: 10px;
+        }
+
+        .mb-2 {
+            margin-bottom: 10px;
+        }
+
+        .IA,
+        .AA {
+            background-color: #E0CCBE;
+        }
+
+        .qeCfwd {
+            background-color: #EEEDEB;
+            text-align: center;
+        }
+
+        #disposalContainer {
+            width: 50%;
+            align-items: center;
+        }
+
+        #disposalTable th {
+            width: 50%;
+        }
+
+        #disposalTable td {
+            width: 50%;
+        }
+
+        th,
+        td {
+            text-align: center !important;
+        }
+
+        #assetTypeDropdown {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .dropdown-menu {
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            border: 1px solid #c6c6c6;
+            width: inherit;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .dropdown-item {
+            padding-top: 0px !important;
+        }
+
+        #assetTypeContainer {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        /* scrollbar design */
+        .dropdown-menu::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        .dropdown-menu::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .dropdown-menu::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        .dropdown-menu::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        table::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        table::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        table::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        table::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .dropdown-menu::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        #dropdownText {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: calc(92.2%);
+            display: block;
+            color: black;
+        }
+
+        .bx {
+            flex-shrink: 0;
+        }
+
+        .dropdown-header {
+            font-weight: semi-bold;
+            font-size: 14px !important;
+            height: 20px;
+            text-align: left;
+            padding-left: 20px !important;
+            padding-top: 3px !important;
+            padding-bottom: 0px !important;
+            color: lightgrey !important;
+            font-weight: semi-bold;
+        }
+
+        .dropdown-menu {
+            max-height: 300px;
+            z-index: 1000;
+            border: 1px solid #c6c6c6;
+            width: inherit;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .dropdown-item.type-item {
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-left: 20px;
+            height: 20px;
+        }
+
+        .dropdown-item.type-item:hover {
+            background-color: #336ad3;
+            color: white;
+            padding-top: 0px;
+        }
+
+        .btn {
+            margin: 5px 10px;
+            letter-spacing: 2px;
+            padding: 15px 35px !important;
+            white-space: normal !important;
+        }
+
+        .dark-outline-btn {
+            color: #333 !important;
+            border-radius: 0px;
+            background-color: transparent;
+            border: solid 1px #333 !important;
+        }
+
+        .dark-outline-btn:hover {
+            background-color: #eeeeee;
+        }
+
+        .form-control.is-invalid,
+        .was-validated .form-control:invalid {
+            border-color: #dc3545;
+            padding-right: calc(1.5em + 0.75rem) !important;
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                color: black !important;
+            }
+
+            #header,
+            footer,
+            #nav {
+                display: none !important;
+            }
+
+            #header,
+            footer,
+            #nav {
+                display: none !important;
+            }
+
+            #caTable tr:first-child th {
+                border-top-color: black !important;
+                border-right-color: black !important;
+                border-left-color: black !important;
+                border-bottom-color: black !important;
+
+            }
+
+            #caTable tr:nth-child(2) th:nth-child(3),
+            #caTable tr:nth-child(2) th:nth-child(6),
+            #caTable tr:nth-child(2) th:nth-last-of-type(1) {
+                border-right-color: black !important;
+            }
+
+
+            #caTable tr:nth-child(2) th,
+            #caTable tr:first-child th:nth-last-of-type(1) {
+                border-bottom-color: black !important;
+            }
+
+            #caTable tr td:nth-child(1) {
+                border-right-color: black !important;
+                border-left-color: black !important;
+            }
+
+            #caTable tr td:nth-child(4),
+            #caTable tr td:nth-child(7),
+            #caTable tr td:nth-child(11),
+            #caTable tr td:nth-child(12) {
+                border-right-color: black !important;
+            }
+
+            #caTable {
+                border-bottom: 2px solid black !important;
+
+            }
+                
+            .ast-footer-overlay {
+                display: none;
+            }
+
+            .btn-link:hover{
+                text-decoration: none;
+            }
+            
+        }
+    </style>
+</head>
+
+<body class="elementor-kit-17983">
+
+    <!-- Header for Print -->
+    <div class="justify-content-center d-none d-flex d-print-flex">
+        <img class="d-none d-print-flex" decoding="async"
+            src="https://cdn.sql.com.my/wp-content/uploads/2023/12/New-SQL-Logo.png" alt="sql-logo"
+            style="height: 60px; width: auto" />
+    </div>
+
+    <!-- Start Content -->
+    <div class="container-fluid pt-5">
+
+        <!-- Title -->
+        <div class="d-print-none text-center">
+            <h1 class="font-24 text-dark mb-0">
+                <svg class="mr-2" id="fi_4836878" height="32" viewBox="0 0 32 32" width="32"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-name="Layer 37">
+                    <linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="5.31" x2="26.69" y1="5.31"
+                        y2="26.69">
+                        <stop offset="0" stop-color="#fdc830"></stop>
+                        <stop offset="1" stop-color="#f37335"></stop>
+                    </linearGradient>
+                    <path
+                        d="m29.969 16a5.009 5.009 0 0 1 .45-1.56 4.4 4.4 0 0 0 .44-3.09 4.785 4.785 0 0 0 -2.28-2.29 5.263 5.263 0 0 1 -1.29-.96 4.714 4.714 0 0 1 -.57-1.48 4.648 4.648 0 0 0 -1.55-2.77 5 5 0 0 0 -3.169-.54 5.335 5.335 0 0 1 -1.69-.08 4.975 4.975 0 0 1 -1.34-.85 4.934 4.934 0 0 0 -2.97-1.38 4.934 4.934 0 0 0 -2.97 1.38 4.975 4.975 0 0 1 -1.34.85 5.335 5.335 0 0 1 -1.69.08 5 5 0 0 0 -3.17.54 4.648 4.648 0 0 0 -1.55 2.77 4.714 4.714 0 0 1 -.57 1.48 5.386 5.386 0 0 1 -1.28.96 4.762 4.762 0 0 0 -2.29 2.29 4.4 4.4 0 0 0 .44 3.09 5.009 5.009 0 0 1 .451 1.56 5.009 5.009 0 0 1 -.45 1.56 4.4 4.4 0 0 0 -.44 3.09 4.784 4.784 0 0 0 2.28 2.29 5.263 5.263 0 0 1 1.29.96 4.714 4.714 0 0 1 .57 1.48 4.648 4.648 0 0 0 1.55 2.77 5 5 0 0 0 3.17.54 5.336 5.336 0 0 1 1.69.08 4.977 4.977 0 0 1 1.34.85 4.934 4.934 0 0 0 2.969 1.38 4.934 4.934 0 0 0 2.97-1.38 4.977 4.977 0 0 1 1.34-.85 5.336 5.336 0 0 1 1.69-.08 5 5 0 0 0 3.17-.54 4.648 4.648 0 0 0 1.55-2.77 4.714 4.714 0 0 1 .57-1.48 5.386 5.386 0 0 1 1.28-.96 4.762 4.762 0 0 0 2.29-2.29 4.4 4.4 0 0 0 -.44-3.09 5.009 5.009 0 0 1 -.451-1.56zm-17.969 3a1.008 1.008 0 0 1 -.71.96.966.966 0 0 1 -.29.04.984.984 0 0 1 -.83-.45l-2.17-3.25v2.7a1 1 0 1 1 -2 0v-6a1.008 1.008 0 0 1 .71-.96.992.992 0 0 1 1.12.41l2.17 3.25v-2.7a1 1 0 1 1 2 0zm5-4a1 1 0 0 1 0 2h-2v1h2a1 1 0 0 1 0 2h-3a1 1 0 0 1 -1-1v-6a1 1 0 0 1 1-1h3a1 1 0 0 1 0 2h-2v1zm7.989 4.16a1.018 1.018 0 0 1 -.89.84h-.099a1.017 1.017 0 0 1 -.94-.65l-.56-1.5-.56 1.5a1 1 0 0 1 -1.93-.19l-1-6a1 1 0 1 1 1.98-.32l.38 2.32.19-.51a1 1 0 0 1 1.88 0l.19.51.38-2.32a1 1 0 1 1 1.98.32z"
+                        fill="url(#linear-gradient)"></path>
+                </svg>
+                SQL Professional Fixed Asset Calculator Malaysia<br>for Capital Allowance 2024
+            </h1>
+        </div>
+
+        <div class="mx-auto" style="max-width: 1000px;">
+
+            <!--Form Container-->
+            <form id="loan_calc" class="d-print-none" action="#resultSection" method="POST">
+                <div class="mt-5">
+
+                    <!-- Container Title -->
+                    <div class="mx-auto font-16 font-weight-500 bgc-purple-100 p-4 container-head">
+                        Asset Details
+                    </div>
+
+                    <!-- Container Details -->
+                    <div class="pt-5 pb-4" style="border: solid #f6f0ff; border-width: 0px 2px 2px 2px">
+                        <div class="px-4">
+
+                            <!-- Asset Category -->
+                            <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                <div class="col-lg-5 p-0">
+                                    <label class="mb-lg-0" for="assetCat">Asset Category</label>
+                                    <small class="d-lg-none text-muted"></small>
+                                    <a href="https://cdn.sql.com.my/wp-content/uploads/2024/02/Asset_Cat_Desc.png"
+                                        tabindex="-1">
+                                        <i class="fa fa-info-circle text-primary ml-2 opacity-80"></i>
+                                    </a><br>
+                                </div>
+
+                                <div
+                                    class="col-lg-7 p-0 pl-lg-5 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                    <select class="form-control default" name="assetCat" id="assetCat" value=""
+                                        style="color: black" value="">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Asset Type-->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <label class="mb-lg-0" for="assetType">Asset Type</label>
+                                    </div>
+                                    <div
+                                        class="col-lg-7 p-0 pl-lg-5 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                        <div class="dropdown" style="width: inherit;">
+                                            <button class="form-control default" type="button" id="assetTypeDropdown"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                style="color: rgb(175, 175, 175); border: none; height: 40px !important; border-radius: 8px; margin-top:8px; padding: 9px 0px 8px 19px;  display:flex;justify-content: space-between; padding-right: 4.8px !important; text-align: right;">
+                                                <span id="dropdownText" style="color: black">Select an Asset Type</span>
+                                                <i id="arrow-down" class="fas fa-chevron-down" style="font-size: 11px; padding-top: 4.5px; color: black; padding-right: 0px;"></i>
+                                            </button>
+                                            <div class="dropdown-menu"
+                                                style="border-radius: 8px; border: 2px solid #c6c6c6; height: auto; max-height: 300px;"
+                                                aria-labelledby="assetTypeDropdown" id="assetTypeContainer">
+                                            </div> 
+                                            <div class="invalid-feedback">Asset Type Missing</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <!-- Tax Allowances Rate -->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover"
+                                            tabindex="-1"
+                                            data-content="The rate of tax allowances for the selected asset type."
+                                            data-original-title=""><label data-type="number" for="prs">Tax Allowances
+                                                Rate (%)
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <!-- Initial Allowance -->
+                                    <div
+                                        class="col-lg-7 p-0 pl-lg-2 pr-lg-0 d-lg-flex align-items-center justify-content-between position-relative">
+                                        <div class="d-lg-block mr-lg-2 font-weight-600"
+                                            style="display: flex; align-items: center; height:100%;">
+                                            <span class="p-1">I.A</span>
+                                        </div>
+                                        <div>
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation pl-2" id="iaRate"
+                                                name="iaRate" min="0" onkeypress="return !(event.charCode == 46)"
+                                                step="1" value="20" onfocus="this.select()" required />
+
+                                            <div class="invalid-feedback pl-lg-5">Value Missing</div>
+                                        </div>
+                                        <div class="d-none d-lg-block mr-lg-2" style="width: 50px;"></div>
+
+                                        <!-- Annual Allowance -->
+                                        <div class="d-lg-block mr-lg-2 font-weight-600"
+                                            style="display: flex; align-items: center">
+                                            <span class="p-1">A.A</span>
+                                        </div>
+                                        <div>
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation pl-2" id="aaRate"
+                                                name="aaRate" min="0" onkeypress="return !(event.charCode == 46)"
+                                                step="1" value="20" onfocus="this.select()" required />
+
+                                            <div class="invalid-feedback pl-lg-5">Value Missing</div>
+                                        </div>
+                                        <input type="text" id="allowanceCap" value="100000" class="d-none" />
+                                    </div>
+                                </div>
+
+                            <!-- Asset Cost -->
+                            <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                <div class="col-lg-5 p-0">
+                                    <a data-toggle="popover" data-container="body" data-trigger="hover focus"
+                                        tabindex="-1" data-content="The total price of asset."><label data-type="number"
+                                            for="assetCost">Asset Cost
+                                        </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                </div>
+
+                                <div
+                                    class="col-lg-7 p-0 pl-lg-0 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                    <div class="input-group" style="display: flex; align-items: center">
+                                        <div class="d-lg-block mr-lg-3 font-weight-600"
+                                            style="display: flex; align-items: center">
+                                            <span class="p-1">RM</span>
+                                        </div>
+                                        <input style="text-align: right" type="number"
+                                            class="form-control default number has-validation pl-2" id="assetCost"
+                                            min="0" onkeypress="return !(event.charCode == 46)" step="10" value="90000"
+                                            onfocus="this.select()" required />
+
+                                        <div class="invalid-feedback pl-lg-5">Asset Cost Missing</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Acquire Date-->
+                            <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                <div class="col-lg-5 p-0">
+                                    <a data-toggle="popover" data-container="body" data-trigger="hover focus"
+                                        tabindex="-1" data-content="The purchase data for asset."><label
+                                            data-type="number" for="acquireDate">Acquire Date
+                                        </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                </div>
+
+                                <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                    <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control default has-validation monthYearPicker"
+                                            id="acquireDate" required />
+                                        <div class="invalid-feedback">Acquire Date Missing</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox for Hire Purchase -->
+                        <div
+                            class="form-check form-check-inline mt-4 custom-control custom-checkbox checkbox-right form-control-sm px-4 d-flex align-items-center">
+                            <input class="form-check-input custom-control-input" type="checkbox" id="hirePurchaseChkBx"
+                                name="hirePurchaseChkBx" value="1" />
+                            <label class="form-check-label custom-control-label opacity-80" for="hirePurchaseChkBx">
+                                Hire purchase loan?
+                            </label>
+                        </div>
+
+                        <!-- Hire Purchase Collapsed -->
+                        <div data-id="hirePurchaseCollapse" id="hirePurchaseCollapse" class="collapse"
+                            style="margin-top: 25px;">
+                            <div class="px-4">
+
+                                <!-- Down Payment-->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover focus"
+                                            tabindex="-1"
+                                            data-content="An initial payment made when asset is bought on hire purchase."><label
+                                                data-type="number" for="downPayment">Down Payment
+                                                <i class="fa fa-info-circle text-primary ml-2 opacity-80"></i>
+                                            </label></a>
+                                    </div>
+
+                                    <div
+                                        class="col-lg-7 p-0 pl-lg-0 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                        <div class="input-group" style="display: flex; align-items: center">
+                                            <div class="d-lg-block mr-lg-3 font-weight-600"
+                                                style="display: flex; align-items: center">
+                                                <span class="p-1">RM</span>
+                                            </div>
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation pl-2" id="downPayment"
+                                                min="0" onkeypress="return !(event.charCode == 46)" step="10" value="9000"
+                                                onfocus="this.select()" required />
+
+                                            <div class="invalid-feedback pl-lg-5" id="downPaymentInvalid">Down Payment
+                                                Missing</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Interest -->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover focus"
+                                            tabindex="-1"
+                                            data-content="Interest rate is the amount charged on top of the principal by a lender to a borrower."><label
+                                                data-type="number" for="interest">Interest (%)
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                        <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                        <div class="input-group" style="display: flex; align-items: center">
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation" id="interest"
+                                                name="interest" min="1" step="0.01" value="3.3" onfocus="this.select()"
+                                                required />
+                                            <div class="invalid-feedback">Interest missing</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Installment Period -->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover focus"
+                                            tabindex="-1" data-content="The years allocated to repay the loan."><label
+                                                data-type="number" for="numInstallment">Installment
+                                                Period
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                        <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                        <div class="input-group" style="display: flex; align-items: center">
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation" id="numInstallment"
+                                                min="1" onkeypress="return !(event.charCode == 46)" step="1" value="5"
+                                                onfocus="this.select()" required />
+                                            <span style="margin-left: 20px; width: 60px">Year(s)</span>
+
+                                            <div class="invalid-feedback">Installment Period Missing</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox for Diposal -->
+                        <div
+                            class="form-check form-check-inline mt-4 custom-control custom-checkbox checkbox-right form-control-sm px-4 d-flex align-items-center">
+                            <input class="form-check-input custom-control-input" type="checkbox" id="disposalChkBx"
+                                name="disposalChkBx" value="1" />
+                            <label class="form-check-label custom-control-label opacity-80" for="disposalChkBx">
+                                Asset disposal?
+                            </label>
+                        </div>
+
+                        <!-- Diposal Collapsed-->
+                        <div data-id="disposalCollapse" id="disposalCollapse" class="collapse"
+                            style="margin-top: 25px;">
+                            <div class="px-4">
+                                <!-- Diposal Amount -->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover focus"
+                                            tabindex="-1"
+                                            data-content="Disposal amount is the monetary value associated with the disposal of an asset."><label
+                                                data-type="number" for="disposalValue">Diposal Amount
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div
+                                        class="col-lg-7 p-0 pl-lg-0 pr-lg-0 d-lg-flex align-items-center position-relative">
+                                        <div class="input-group" style="display: flex; align-items: center">
+                                            <div class="d-lg-block mr-lg-3 font-weight-600"
+                                                style="display: flex; align-items: center">
+                                                <span class="p-1">RM</span>
+                                            </div>
+                                            <input style="text-align: right" type="number"
+                                                class="form-control default number has-validation pl-2"
+                                                id="disposalValue" min="0" onkeypress="return !(event.charCode == 46)"
+                                                step="10" value="0" onfocus="this.select()" required />
+
+                                            <div class="invalid-feedback pl-lg-5">Disposal amount Missing</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Diposal Date-->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover focus"
+                                            tabindex="-1" title=""
+                                            data-content="Disposal date is the specific date on which an asset is sold, discarded, or otherwise removed from the company's balance sheet."><label
+                                                data-type="number" for="disposalDate">Diposal Date
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+                                    <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                        <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                        <div class="input-group">
+                                            <input type="text"
+                                                class="form-control default has-validation monthYearPicker"
+                                                id="disposalDate" required />
+                                            <div class="invalid-feedback">Disposal date Missing</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fiscal year-->
+                        <!-- Checkbox for Fiscal Year -->
+                        <div
+                            class="form-check form-check-inline mt-4 custom-control custom-checkbox checkbox-right form-control-sm px-4 d-flex align-items-center">
+                            <input class="form-check-input custom-control-input" type="checkbox" id="fyChkBx"
+                                name="fyChkBx" value="1" />
+                            <label class="form-check-label custom-control-label opacity-80" for="fyChkBx">
+                                Cut off by financial year
+                            </label>
+                        </div>
+
+                        <!-- Fiscal Year Collapsed-->
+                        <div data-id="fyCollapse" id="fyCollapse" class="collapse" style="margin-top: 25px;">
+                            <div class="px-4">
+
+                                <!-- Financial Month-->
+                                <div class="d-lg-flex align-items-center justify-content-between mb-4 frm-field">
+                                    <div class="col-lg-5 p-0">
+                                        <a data-toggle="popover" data-container="body" data-trigger="hover focus"
+                                            tabindex="-1" title=""
+                                            data-content="Financial start month is the month in which a company's financial year begins."><label
+                                                data-type="number" for="fyDate">Financial Start Month
+                                            </label><i class="fa fa-info-circle text-primary ml-2 opacity-80"></i></a>
+                                    </div>
+
+                                    <div class="col-lg-7 p-0 pl-lg-3 pr-lg-0 d-lg-flex align-items-center">
+                                        <div class="d-none d-lg-block mr-lg-3 font-weight-600 p-2"></div>
+                                        <div class="input-group date">
+                                            <input type="text"
+                                                class="form-control default has-validation monthYearPicker" id="fyDate"
+                                                required />
+                                            <span class="input-group-addon"><i
+                                                    class="glyphicon glyphicon-calendar"></i></span>
+                                            <div class="invalid-feedback">Financial Start Month Missing</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+
+        <!-- Calculate Button -->
+        <div id="resultSection">
+            <a id="result"></a>
+            <div class="d-flex justify-content-center mt-4 d-print-none ">
+                <button type="submit" name="btnCalculate" class="purple-btn mx-3" id="btnCalculate"
+                    style="margin-bottom: 4rem;">
+                    Calculate
+                </button>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="container" style="overflow-x: auto;">
+        <div class="row justify-content-md-center">
+            <table id="caTable" class="d-none table-striped table-bordered justify-content-md-center table-hover">
+                <thead class="thead-dark ">
+                    <tr>
+                        <th rowspan="2"
+                            style="vertical-align: middle; border-right: 1px solid black; text-align: center !important">
+                            Year of Assessment</th>
+                        <th colspan="3" style="vertical-align: middle; text-align: center !important">Qualifying
+                            Expenditure</th>
+                        <th colspan="3" style="vertical-align: middle; text-align: center !important">Tax Written Down
+                            Value</th>
+                        <th colspan="4" style="vertical-align: middle; text-align: center !important">Capital Allowance
+                        </th>
+                        <th rowspan="2" style="vertical-align: middle; text-align: center !important">Tax Written Down
+                            Value C/F</th>
+                    </tr>
+                    <tr>
+                        <th style="vertical-align: middle; text-align: center !important">B/F</th>
+                        <th style="vertical-align: middle; text-align: center !important">Additional</th>
+                        <th style="vertical-align: middle; text-align: center !important">C/F</th>
+                        <th style="vertical-align: middle; text-align: center !important">B/F</th>
+                        <th style="vertical-align: middle; text-align: center !important">Additional</th>
+                        <th style="vertical-align: middle; text-align: center !important">Total</th>
+                        <th style="vertical-align: middle; text-align: center !important">I.A Rate (%)</th>
+                        <th style="vertical-align: middle; text-align: center !important">I.A</th>
+                        <th style="vertical-align: middle; text-align: center !important">A.A Rate (%)</th>
+                        <th style="vertical-align: middle; text-align: center !important">A.A</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-md-center ">
+            <table id="caSummaryTable" class="table table-light table-bordered justify-content-md-center d-none"
+                style="border: 2px solid rgb(150, 148, 148) !important">
+                <thead class="thead-dark" style="border:none">
+                    <tr>
+                        <th style="vertical-align: middle; text-align: center !important">Year of Assessment</th>
+                        <th style="vertical-align: middle; text-align: center !important">Qualifying Expenditure</th>
+                        <th style="vertical-align: middle; text-align: center !important">Tax Written Down B/F</th>
+                        <th style="vertical-align: middle; text-align: center !important">Additional</th>
+                        <th style="vertical-align: middle; text-align: center !important"><a id="tooltipIA"
+                                data-toggle="popover" data-container="body" data-trigger="hover" tabindex="-1">I.A
+                                <i class="fa fa-info-circle text-primary ml-2 opacity-80 d-print-none"></i></a></th>
+                        <th style="vertical-align: middle; text-align: center !important"><a id="tooltipAA"
+                                data-toggle="popover" data-container="body" data-trigger="hover" tabindex="-1">A.A
+                                <i class="fa fa-info-circle text-primary ml-2 opacity-80 d-print-none"></i></a></th>
+                        <th style="vertical-align: middle; text-align: center !important">Tax Written Down C/F</th>
+                    </tr>
+                </thead>
+                <tbody id="summaryTableBody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="accordion-guide" class="d-none d-md-none row d-print-none" style="margin:10px">
+        <div class="col">
+            <a id="tooltipIAaccordion" data-toggle="popover" data-container="body" data-trigger="hover"
+            tabindex="-1" >I.A<i class="fa fa-info-circle text-primary ml-2 opacity-80 d-print-none"></i>
+            </a>
+        </div>
+        <div class="col">
+            <a id="tooltipAAaccordion" data-toggle="popover" data-container="body" data-trigger="hover"
+            tabindex="-1" >A.A<i class="fa fa-info-circle text-primary ml-2 opacity-80 d-print-none"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="d-md-none d-print-none" id="accordionTable" style="width:100%; max-width:1600px; margin:auto">
+        <!-- Accordion Table Content -->
+    </div>
+
+    <div class="card" id="accordion-item-refer" style="display:none;">
+        <div class="card-header" id="headingOne" style="padding: 0px;">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed btn-accordion" type="button" data-toggle="collapse" data-target="#collapse-1"
+                        aria-expanded="false" aria-controls="collapse-1"
+                        style="color: white; background-color: #343A40; width:100%; margin:0px; padding: 20px 0;">
+                    <div class="d-flex justify-content-between align-items-center" style="width:100%;">
+                        <div style="margin-right: 6%;">
+                            <strong>YA <span class="accordion-year">2023</span></strong>
+                        </div>
+                        <div class="grid-container" style="display: grid; grid-template-columns: auto auto; justify-content: end; width: 100%;">
+                            <div class="flex-column align-items-center" style="justify-self: center;">
+                                <strong>I.A</strong><br>
+                                <span class="accordion-IA" style="font-size: 3.5vw; white-space: nowrap;">18000</span>
+                            </div>
+                            <div class="flex-column align-items-center" style="padding-left: 15px; justify-self: center; overflow-wrap: break-word;">
+                                <strong>A.A</strong><br>
+                                <span class="accordion-AA" style="font-size: 3.5vw; white-space: nowrap;">18000</span>
+                            </div>
+                        </div>
+                        <i class="bx bx-chevron-down" style="color: white; font-weight: lighter; font-size: 17.8px; padding-left: 10px;"></i>
+                    </div>
+                </button>
+            </h5>
+        </div>
+    
+        <div id="collapse-1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionTable">
+            <div class="card-body" style="padding:0px">
+                <div class="d-flex justify-content-between" style="padding: 16px 20px;">
+                    <span>Qualifying Expenditure</span>
+                    <span class="accordion-QE">-</span>
+                </div>
+                <div class="d-flex justify-content-between" style="padding: 16px 20px;  background-color: #C2C2C2;">
+                    <span><strong>Tax Written Down B/F</strong></span>
+                    <span class="accordion-TWBF">0</span>
+                </div>
+                <div class="d-flex justify-content-between" style="padding: 16px 20px;  background-color: #C2C2C2;">
+                    <span><strong>Additional</strong></span>
+                    <span class="accordion-Add">17410</span>
+                </div>
+                <div class="d-flex justify-content-between" style="padding: 16px 20px;  background-color: #C2C2C2;">
+                    <span><strong>Tax Written Down C/F</strong></span>
+                    <span class="accordion-TWCF">10446</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <br>
+    <br>
+    <div class="container-sm" id="disposalContainer" style="display:none">
+        <div class="justify-content-sm-center text-center">
+            <table id="disposalTable" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Disposal Amount</th>
+                        <td id="disposalAmount">-</td>
+                    </tr>
+                    <tr>
+                        <th>Residual Expenditure</th>
+                        <td id="residualExpenditure">-</td>
+                    </tr>
+                    <tr>
+                        <th>Balancing Charge</th>
+                        <td id="balancingCharge">-</td>
+                    </tr>
+                    <tr>
+                        <th>Balancing Allowance</th>
+                        <td id="balancingAllowance">-</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-print-none d-none d-flex justify-content-center">
+        <a class="btn dark-outline-btn py-2 px-4 d-none printButtons"
+            style="padding: 15px 35px !important; border-radius: 0px; border: solid 1px #333 !important;"
+            onclick=printPage()>Print Details</a>
+        <a class="btn dark-outline-btn py-2 px-4 d-none printButtons"
+            style="padding: 15px 35px !important; border-radius: 0px; border: solid 1px #333 !important;"
+            onclick=printSummary()>Print Summary</a>
+    </div>
+    <div id='gap' class="d-print-none" style="margin-bottom: 150px; display:none"></div>
+
+    <script>
+        $(function () {
+            var is_touch_device = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)) || hasTouchSupport();
+            console.log('istouchdevice' + hasTouchSupport())
+            if (is_touch_device || hasTouchSupport()) {
+                $("label[data-type='number']").removeAttr("for");
+            }
+
+            $('[data-toggle="popover"]').popover({
+                trigger: is_touch_device || hasTouchSupport() ? "focus" : "focus hover",
+                placement: is_touch_device || hasTouchSupport() ? "top" : "right",
+                html: true,
+            });
+        });
+
+        $(function () {
+            var is_touch_device = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+
+            if (is_touch_device) {
+                $("label[data-type='number']").removeAttr("for");
+            }
+
+            $('[data-toggle="popover"]').popover({
+                trigger: is_touch_device ? "focus" : "focus hover",
+                placement: is_touch_device ? "top" : "right",
+                html: true,
+            });
+        });
+
+
+
+        // Populate Dropdown for Asset Category with JSON data
+        function populateDropdown(jsonData, fieldID) {
+            var dropdown = document.getElementById(fieldID);
+
+            dropdown.innerHTML = '';
+
+            var disabledOption = document.createElement("option");
+            disabledOption.text = "Select an Asset Category";
+            disabledOption.value = "";
+            disabledOption.disabled = true;
+            disabledOption.selected = true;
+            disabledOption.style.fontWeight = "semi-bold";
+            disabledOption.style.color = "lightgrey";
+            dropdown.add(disabledOption);
+
+            jsonData.forEach(function (item) {
+                var option = document.createElement("option");
+                option.value = Object.keys(item)[0];
+                option.text = Object.keys(item)[0];
+                option.style.color = "black";
+                dropdown.appendChild(option);
+                if(Object.keys(item)[0] == 'Motor Vehicle'){
+                    option.selected = true;
+                    fetchAssetType(Object.keys(item)[0])
+                }
+            });
+        }
+
+        // Event Listener for Change Event on Asset Category Dropdown to Fetch Asset Type
+        $('#assetCat').on('change', function () {
+            var selectedValue = $(this).val();
+            $(this).css('color', 'black');
+            $('#iaRate').val("0");
+            $('#aaRate').val("0");
+            fetchAssetType(selectedValue);
+        });
+
+        var previous_index = -1;
+
+        function fetchAssetType(selectedValue) {
+
+            // Directly filter the capitalData array based on selectedValue
+            var filteredData = capitalData.filter(category => Object.keys(category)[0] === selectedValue);
+
+            // Clear previous entries
+            $("#assetTypeDropdown").val("");
+            $("#assetTypeContainer").empty();
+            $('#dropdownText').text("Select an Asset Type"); // Update button text
+            $('#dropdownText').css('color', 'rgb(175, 175, 175)');
+            $('#arrow-down').css('color', 'rgb(175, 175, 175)');
+
+            if (filteredData.length > 0) {
+                // Assuming each category in filteredData contains an array of assets
+                var assets = filteredData[0][selectedValue];
+
+                populateAssetType(assets);
+            } else {
+                console.error('Category with selected key not found');
+            }
+        }
+
+        // Populate Dropdown for Asset Type with JSON data
+        function populateAssetType(assets) {
+            // Directly use the assets parameter instead of extracting from filteredData
+            $("#assetTypeContainer").empty();
+            var placeholderItem = $(`<div class='dropdown-header'>Select Asset Type</div>`);
+            $("#assetTypeContainer").append(placeholderItem);
+
+            var processedGroups = new Set();
+
+            assets.forEach((asset, index) => {
+                if (asset.hasOwnProperty("assetGroup") && !processedGroups.has(asset.assetGroup)) {
+                    processedGroups.add(asset.assetGroup);
+                    var groupHeader = $(`<label class="dropdown-item" id="groupHeader${index}" style="position: relative; display: block; margin:0">
+                        <input type="checkbox" class="groupCheckbox" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0" />
+                        ${asset.assetGroup}
+                    </label>`);
+                    var groupBody = $(`<div id="groupBody${index}" class="dropdown-menu" aria-labelledby="groupHeader${index}"></div>`);
+
+                    $("#assetTypeContainer").append(groupHeader);
+                    groupHeader.after(groupBody); // Place the groupBody right after the groupHeader in the DOM
+
+                    if (hasTouchSupport()) {
+                        groupHeader.find('.groupCheckbox').change(function () {
+                            if (this.checked) {
+                                $(`#groupBody${index}`).show();
+                                if (previous_index !== -1 && previous_index !== index) {
+                                    $(`#groupBody${previous_index}`).hide();
+                                    $(`#groupHeader${previous_index}`).find('.groupCheckbox').prop('checked', false); // Uncheck the previous checkbox if another is expanded
+                                }
+                                previous_index = index;
+                            } else {
+                                $(`#groupBody${index}`).hide();
+                            }
+                        });
+                    } else {
+                        // Handle hover to show asset types
+                        groupHeader.hover(
+                            function (e) { // Mouse enter
+                                $(`#groupBody${index}`).show()
+                                e.preventDefault();
+                                if (previous_index != -1 && previous_index !== index) {
+                                    $(`#groupBody${previous_index}`).hide();
+
+                                }
+                                previous_index = index;
+                            },
+                            function (e) { // Mouse leave
+                                e.preventDefault();
+                            }
+                        )
+                    }
+
+                    assets.filter(a => a.assetGroup === asset.assetGroup).forEach(a => {
+                        var typeItem = $(`<button class="dropdown-item type-item" type="button">${a.assetType}</button>`);
+                        typeItem.on('click', function () {
+                            $('#dropdownText').text(a.assetType); // Update button text
+                            $('#dropdownText').css('color', 'black');
+                            $('#assetTypeDropdown').val(a.assetType); // Update button value
+                            $('#arrow-down').css('color', 'black');
+                            $(`#groupBody${index}`).hide(); // Hide the asset types on selection
+                            assetTypeChange();
+                        });
+                        groupBody.append(typeItem);
+                    });
+                } else if (!asset.hasOwnProperty("assetGroup")) {
+                    var typeItem = $(`<button class="dropdown-item type-item" type="button">${asset.assetType}</button>`);
+                    typeItem.on('click', function () {
+                        $('#dropdownText').text(asset.assetType);
+                        $('#dropdownText').css('color', 'black');
+                        $('#arrow-down').css('color', 'black');
+                        $('#assetTypeDropdown').val(asset.assetType);
+                        assetTypeChange();
+                    });
+                    $("#assetTypeContainer").append(typeItem);
+                }
+            });
+        }
+
+        async function getAllowanceInfo(assetCat, assetType) {
+            try {
+                // Assuming capitalData is directly accessible as an array of objects
+                var filteredData = capitalData.filter(category => Object.keys(category).includes(assetCat));
+                if (filteredData.length > 0) {
+                    var assets = filteredData[0][assetCat];
+                    var allowanceData = assets.find(item => item.assetType === assetType);
+                    if (allowanceData) {
+                        const allowance = [
+                            allowanceData.initialAllowance,
+                            allowanceData.annualAllowance,
+                            allowanceData.hasOwnProperty('allowanceCap') ? allowanceData.allowanceCap : undefined
+                        ];
+                        return allowance;
+                    } else {
+                        throw new Error('Asset type not found in the selected category');
+                    }
+                } else {
+                    throw new Error('Category with selected key not found');
+                }
+            } catch (error) {
+                console.error('Error processing JSON data:', error.message);
+                throw error;
+            }
+        }
+
+        function hasTouchSupport() {
+            return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        }
+
+        // Event Listener for Asset Type Dropdown to Fetch and Expend Allowances Rate
+        async function assetTypeChange() {
+            let selectedType = $('#assetTypeDropdown').val();
+            let selectedCat = $('#assetCat').val();
+
+            console.log('try');
+            allowance = await getAllowanceInfo(selectedCat, selectedType);
+
+            $('.hidden').css('display', 'flex');
+            $('#iaRate').val(allowance[0]);
+            $('#aaRate').val(allowance[1]);
+            $('#allowanceCap').val(allowance[2]);
+        };
+    
+         $('#assetCost').on('change', function () {
+            $('#downPayment').val($(this).val() * 0.1);
+        });  
+        
+        
+        // Activate Installment Checkbox
+        $(function () {
+            // Activate Installment Checkbox
+            $(document).on("change", "#hirePurchaseChkBx", function () {
+                if ($(this).is(':checked')) {
+                    $('div[data-id=hirePurchaseCollapse]').collapse('show');
+                } else {
+                    $('div[data-id=hirePurchaseCollapse]').collapse('hide');
+                }
+            });
+
+            // Activate Disposal Checkbox
+            $(document).on("change", "#disposalChkBx", function () {
+                if ($(this).is(':checked')) {
+                    $('div[data-id=disposalCollapse]').collapse('show');
+                } else {
+                    $('div[data-id=disposalCollapse]').collapse('hide');
+                }
+            });
+
+            // Activate Fiscal Year Checkbox
+            $(document).on("change", "#fyChkBx", function () {
+                if ($(this).is(':checked')) {
+                    $('div[data-id=fyChkBx]').collapse('show');
+                } else {
+                    $('div[data-id=fyChkBx]').collapse('hide');
+                }
+            });
+        });
+
+        // Activate Fiscal Year Checkbox
+        $("#fyChkBx").click(function () {
+            setTimeout(function () { }, 1000);
+            if ($(this).prop("checked")) {
+                $("#fyCollapse").collapse("show");
+            } else {
+                $("#fyCollapse").collapse("hide");
+            }
+        });
+
+
+        // Preloaded Data for Asset Category
+        $(document).ready(function () {
+            // Initialize Datepicker for elements with class 'monthYearPicker'
+            $('.monthYearPicker').datepicker({
+                format: "mm/yyyy",
+                startView: "months",
+                minViewMode: "months",
+                autoclose: true
+            });
+
+            $('[data-toggle="popover"]').popover();
+
+            $("#resultAccordion")
+                .on("show.bs.collapse", function (event) {
+                    $(event.target)
+                        .prev(".accordion-header")
+                        .find(".collapse-icon i")
+                        .removeClass("fa-angle-down")
+                        .addClass("fa-angle-up");
+                })
+                .on("hide.bs.collapse", function (event) {
+                    $(event.target)
+                        .prev(".accordion-header")
+                        .find(".collapse-icon i")
+                        .removeClass("fa-angle-up")
+                        .addClass("fa-angle-down");
+                });
+            
+            // Get the current date
+            var currentDate = new Date();
+
+            // Extract the month and year
+            var month = currentDate.getMonth() + 1; // Adding 1 because getMonth() returns a zero-based index
+            var year = currentDate.getFullYear();
+
+            // Format the month to have leading zero if necessary
+            if (month < 10) {
+                month = '0' + month;
+            }
+
+            // Combine the month and year into the desired format
+            var formattedDate = month + '/' + year;
+
+            $('#acquireDate').val(formattedDate);
+            populateDropdown(capitalData, 'assetCat');
+            $('#dropdownText').text('New Non-Commercialized Vehicle with value < 100000');
+            $("#assetTypeDropdown").val('New Non-Commercialized Vehicle with value < 100000');
+            $('#dropdownText').css('color', 'black');
+            $('#arrow-down').css('color', 'black');
+            displayCalcResult();
+        });
+        
+        function printPage() {
+            $('#caSummaryTable').removeClass('d-print-table');
+            if ($('#caSummaryTable:visible').length > 0 || $('#accordionTable .card').length > 0) {
+                $('#caTable').addClass('d-print-block');
+            }
+            window.print();
+        };
+
+        function printSummary() {
+            $('#caSummaryTable').removeClass('d-print-none');
+            $('#caSummaryTable').addClass('d-print-table');
+            $('#caTable').removeClass('d-print-block');
+            window.print();
+        };
+
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // When click button
+        $("#btnCalculate").click(function (e) {
+            e.preventDefault();
+            resetPage();
+            if (validateInput()) {
+                displayCalcResult();
+                // Container Anchor to scroll the webpage to the table 
+                let containerAnchor = document.getElementById('result');
+
+                if (containerAnchor) {
+                    containerAnchor.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+
+        function displayCalcResult() {
+            let caArray = calcCapitalAllowance();
+                if (caArray.length > 0) {
+                    // $('#caSummaryTable').show();
+                    $('#caSummaryTable').addClass('d-md-table');
+                    createSummaryTable(caArray);
+                    createDetailTable(caArray);
+                    createAccordianTable(caArray);
+                }
+
+                $(".printButtons").removeClass("d-none");
+                $("#gap").css("display", "block");
+        }
+
+        // Reset Webpage
+        function resetPage() {
+            $("#disposalContainer").css("display", "none");
+            $('#caTable').hide();
+            $('#caSummaryTable').removeClass('d-md-table');
+            $('#tableBody').empty();
+            $('#summaryTableBody').empty();
+            $("#accordion-guide").addClass("d-none");
+            $("#accordionTable").empty();
+            $(".printButtons").addClass("d-none");
+            $("#gap").css("display", "none");
+            $("#disposalAmount").html('-');
+            $("#residualExpenditure").html('-');
+            $("#balancingAllowance").html('-');
+            $("#balancingCharge").html('-');
+        }
+
+        // Validation for input
+        function validateInput(){
+            $("#assetCat").removeClass("is-invalid");
+            $("#assetTypeDropdown").removeClass("is-invalid");
+            $("#iaRate").removeClass("is-invalid");
+            $("#aaRate").removeClass("is-invalid");
+            $("#assetCost").removeClass("is-invalid");
+            $("#acquireDate").removeClass("is-invalid");
+            $("#downPayment").removeClass("is-invalid");
+            $("#numInstallment").removeClass("is-invalid");
+            $("#interest").removeClass("is-invalid");
+            $("#disposalValue").removeClass("is-invalid");
+            $("#disposalDate").removeClass("is-invalid");
+            $("#fyDate").removeClass("is-invalid");
+            let validate = true;
+            console.log($("#assetCat").val());
+            // Check if the "Asset Category" dropdown is empty
+            if($("#fyChkBx").prop("checked")) {
+                if ($("#fyDate").val() == "") {
+                    $("#fyDate").focus();
+                    $("#fyDate").addClass("is-invalid");
+                    validate = false;
+                } 
+            }
+            if($("#disposalChkBx").prop("checked")) {
+               if ($("#disposalDate").val() == "") {
+                    $("#disposalDate").focus();
+                    $("#disposalDate").addClass("is-invalid");
+                    validate = false;
+                } 
+                if ($("#disposalValue").val() == "" || $("#disposalValue").val() < 0) {
+                    $("#disposalValue").focus();
+                    $("#disposalValue").addClass("is-invalid");
+                    validate = false;
+                } 
+            } 
+            if ($("#hirePurchaseChkBx").prop("checked")) {
+                if ($("#numInstallment").val() == "" || $("#numInstallment").val() == 0 || $("#numInstallment").val() < 0) {
+                    $("#numInstallment").focus();
+                    $("#numInstallment").addClass("is-invalid");
+                    validate = false;
+                }
+        
+                if ($("#interest").val() == "" || $("#interest").val() < 0) {
+                    $("#interest").focus();
+                    $("#interest").addClass("is-invalid");
+                    if ($("#interest").val() == "") {
+                        $("#interest").next('.invalid-feedback').text("Interest Missing Value");
+                    }
+                    else if ($("#interest").val() < 0) {
+                        $("#interest").next('.invalid-feedback').text("Interest Value Cannot Less Than 0");
+                    }
+                    validate = false;
+                } 
+        
+                if ($("#downPayment").val() == "" || $("#downPayment").val() < 0 ||  parseFloat($("#downPayment").val()) > parseFloat($("#assetCost").val())) {
+                    console.log( $("#assetCost").val())
+                    $("#downPayment").focus();
+                    $("#downPayment").addClass("is-invalid");
+                    if (parseFloat($("#downPayment").val()) > parseFloat($("#assetCost").val())) {
+                        $("#downPaymentInvalid").text("Down Payment exceeded Cost of Asset");
+                    }
+                    if ($("#downPayment").val() == "") {
+                        $("#downPayment").next('.invalid-feedback').text("Down Payment MissingValue");
+                    }
+                    else if ($("#downPayment").val() < 0) {
+                        $("#downPayment").next('.invalid-feedback').text("Down Payment Value Cannot Less Than 0");
+                    }
+                    validate = false;
+                } 
+        
+            } 
+            if ($("#acquireDate").val() == "") {
+                $("#acquireDate").focus();
+                $("#acquireDate").addClass("is-invalid");
+                validate = false;
+            } 
+            if ($("#assetCost").val() == "" || $("#assetCost").val() == 0 || $("#assetCost").val() < 0) {
+                $("#assetCost").focus();
+                $("#assetCost").addClass("is-invalid");
+                if ($("#assetCost").val() == "" || $("#assetCost").val() == 0) {
+                    $("#interest").next('.invalid-feedback').text("Asset Cost Missing Value");
+                }
+                else if ($("#assetCost").val() < 0) {
+                    $("#interest").next('.invalid-feedback').text("Asset Cost Cannot Less Than 0");
+                }
+                validate = false;
+            } 
+            if ($("#aaRate").val() == "" || $("#aaRate").val() < 0) {
+                $("#aaRate").focus();
+                $("#aaRate").addClass("is-invalid");
+                if ($("#aaRate").val() == "") {
+                    $("#aaRate").next('.invalid-feedback').text("I.A or A.A Missing Value");
+                }
+                else if ($("#aaRate").val() < 0) {
+                    $("#aaRate").next('.invalid-feedback').text("I.A or A.A Cannot Less Than 0");
+                }
+                validate = false;
+            } 
+            if ($("#iaRate").val() == "" || $("#iaRate").val() < 0) {
+                $("#iaRate").focus();
+                $("#iaRate").addClass("is-invalid");
+                if ($("#iaRate").val() == "") {
+                    $("#iaRate").next('.invalid-feedback').text("I.A or A.A Missing Value");
+                }
+                else if ($("#iaRate").val() < 0) {
+                    $("#iaRate").next('.invalid-feedback').text("I.A or A.A Cannot Less Than 0");
+                }
+                validate = false;
+            } 
+            if ($("#assetCat").val() == "" || $("#assetCat").val() == undefined) {
+                // If empty, set focus, add 'is-invalid' class, and set validate flag to false
+                $("#assetCat").focus().addClass("is-invalid");
+                validate = false;
+            } 
+            if (!($("#assetCat").hasClass('is-invalid')) && $("#assetTypeDropdown").val() === ""){
+                // If "Asset Type" is empty, set focus, add 'is-invalid' class, and set validate flag to false
+                $("#assetTypeDropdown").focus().addClass("is-invalid");
+                validate = false;
+            } 
+        
+            return validate;
+        }
+
+        function calcCapitalAllowance() {
+            let FinancialMonth = {
+                January: 0,
+                February: 1,
+                March: 2,
+                April: 3,
+                May: 4,
+                June: 5,
+                July: 6,
+                August: 7,
+                September: 8,
+                October: 9,
+                November: 10,
+                December: 11
+            }
+            // Retrieve values from fields
+            let initialAllowanceRate = $("#iaRate").val();
+            let annualAllowanceRate = $("#aaRate").val();
+            let allowanceCap = $("#allowanceCap").val();
+            let acquireDate = $("#acquireDate").val();
+            let assetCost = $("#assetCost").val();
+            let downPayment = $("#downPayment").val();
+            let tenure = $("#numInstallment").val();
+            let interest = $("#interest").val();
+            let costSite = $("#costSite").val();
+
+
+            const MaxAllowancePercent = 100;
+
+            let caArray = [];
+
+            assetCost = parseFloat(assetCost);
+
+            let allowanceEligible = Math.min(allowanceCap || assetCost, assetCost);
+
+            // Split the string by "/"
+            let [acquireMonth, acquireYear] = acquireDate.split("/");
+
+            // Convert month and year to integers
+            acquireMonth = parseInt(acquireMonth) - 1;
+            acquireYear = parseInt(acquireYear);
+
+            if ($("#fyChkBx").prop("checked")) {
+                let fyDate = $("#fyDate").val();
+                let [fyMonth, fyYear] = fyDate.split("/");
+                const selectedMonthName = new Date(fyMonth + '-01').toLocaleString('en-us', { month: 'long' });
+
+                let monthCounter = FinancialMonth[selectedMonthName];
+                // Reassign the financial month dictionary
+                for (let i = 0; i < 12; i++) {
+                    if (monthCounter > 11) {
+                        monthCounter = 0;
+                    }
+                    FinancialMonth[months[monthCounter]] = i;
+                    monthCounter++;
+
+                }
+            }
+
+            if (FinancialMonth[months[acquireMonth]] < acquireMonth) {
+                acquireYear += 1;
+            };
+
+            if ($("#hirePurchaseChkBx").prop("checked")) {
+                caArray = withInstallment(FinancialMonth, initialAllowanceRate, annualAllowanceRate, acquireYear, acquireMonth, assetCost, allowanceEligible, MaxAllowancePercent, downPayment, tenure, interest)
+            } else {
+                caArray = withoutInstallment(initialAllowanceRate, annualAllowanceRate, acquireYear, allowanceEligible, MaxAllowancePercent)
+            }
+
+            // Display the JSON object in the console
+            if ($("#disposalChkBx").prop("checked")) {
+                let disposalDate = $("#disposalDate").val();
+                let disposalValue = $("#disposalValue").val();
+                let [disposalMonth, disposalYear] = disposalDate.split("/");
+                disposalMonth = new Date(disposalMonth + '-01').toLocaleString('en-us', { month: 'long' });
+                disposalYear = parseInt(disposalYear);
+
+                if (FinancialMonth[months[disposalMonth]] < disposalMonth) {
+                    disposalYear += 1;
+                };
+
+                disposalValue = parseFloat(disposalValue);
+
+                if (caArray.length > 0) {
+                    let lastCa = caArray[caArray.length - 1];
+
+                    // Filter caArray
+                    if (lastCa.year >= disposalYear) {
+                        let disposedArray = caArray.filter(d => d.year >= disposalYear);
+                        caArray = caArray.filter(d => d.year < disposalYear);
+                        displayDisposal(disposedArray, disposalValue);
+                    }
+                }
+
+            }
+            return caArray;
+        }
+
+        function displayDisposal(disposedArray, disposalValue) {
+            let sumIA = disposedArray.reduce((sum, item) => sum + (item.IA ? item.IA : 0), 0);
+            let sumAA = disposedArray.reduce((sum, item) => sum + item.AA, 0);
+
+            // Calculate the remaining value
+            let residual_expenditure = Math.round(sumIA + sumAA);
+            let balancing = Math.round(residual_expenditure - disposalValue);
+
+            $("#disposalContainer").css("display", "block");
+            $("#disposalAmount").html(disposalValue);
+            $("#residualExpenditure").html(residual_expenditure);
+            if (balancing >= 0) {
+                $("#balancingAllowance").html(balancing);
+            } else {
+                $("#balancingCharge").html(balancing);
+            }
+        }
+
+        function withoutInstallment(initialAllowanceRate, annualAllowanceRate, acquireYear, allowanceEligible, MaxAllowancePercent) {
+
+            let caArray = [];
+            let year = acquireYear;
+            let twdvBFWD = allowanceEligible;
+            let firstInitialAllowance = allowanceEligible * initialAllowanceRate / MaxAllowancePercent;
+            let firstAnnualAllowance = allowanceEligible * annualAllowanceRate / MaxAllowancePercent;
+            let twdvCFWD = twdvBFWD - firstInitialAllowance - firstAnnualAllowance;
+            let qeBfwd = 0;
+            let leftPercent = (MaxAllowancePercent - initialAllowanceRate - annualAllowanceRate) / MaxAllowancePercent;
+            let annualAllowanceRateDec = annualAllowanceRate / MaxAllowancePercent;
+            let caRec = { year: year, qeBfwd: qeBfwd, IARate: initialAllowanceRate, AARate: annualAllowanceRate, qeCfwd: allowanceEligible, totalqe: allowanceEligible, taxBfwd: twdvBFWD, taxTotal: twdvBFWD, IA: firstInitialAllowance, AA: firstAnnualAllowance, taxCfwd: twdvCFWD };
+            caArray.push(caRec);
+            qeBfwd = allowanceEligible;
+            twdvBFWD = twdvCFWD;
+            while (leftPercent > 0) {
+                let annualAllowance;
+                if (leftPercent < annualAllowanceRateDec) {
+                    annualAllowance = allowanceEligible * leftPercent;
+                } else {
+                    annualAllowance = allowanceEligible * annualAllowanceRateDec;
+                }
+                twdvCFWD = twdvBFWD - annualAllowance;
+                year += 1;
+                caRec = { year: year, qeBfwd: qeBfwd, IARate: initialAllowanceRate, AARate: annualAllowanceRate, qeCfwd: allowanceEligible, totalqe: allowanceEligible, taxBfwd: twdvBFWD, taxTotal: twdvBFWD, AA: annualAllowance, taxCfwd: twdvCFWD };
+                twdvBFWD = twdvCFWD;
+                caArray.push(caRec);
+                leftPercent -= (annualAllowanceRate / MaxAllowancePercent);
+            }
+            return caArray;
+        }
+
+        // Function to be invoked when the asset is purchased with hire purchase
+        function withInstallment(FinancialMonth, initialAllowanceRate, annualAllowanceRate, acquireYear, acquireMonth, assetCost, allowanceEligible, MaxAllowancePercent, downPayment, tenure, interest) {
+            const loan_amount = assetCost - downPayment;
+            const numInstallment = tenure * 12;
+            const effective_rate_desc = calculateEffectiveRate(loan_amount, interest, tenure) / 100;
+            const interest_rate_desc = parseFloat(interest / 100);
+            const monthly_repayment_original = parseFloat(loan_amount * interest_rate_desc * tenure + loan_amount) / (tenure * 12);
+            const total_interest_original = parseFloat(loan_amount * interest_rate_desc * tenure);
+            const total_amount = Math.round(total_interest_original + loan_amount);
+            const open_balance = allowanceEligible - downPayment;
+            const repayment = Math.round(monthly_repayment_original);
+            const last_installment = total_amount - repayment * (numInstallment - 1);
+            acquireYear = parseInt(acquireYear);
+            let qeYearly = {};
+
+            qeYearly = calculateQualifyingExpenditure(FinancialMonth, acquireYear, acquireMonth, downPayment, open_balance, allowanceEligible, numInstallment, repayment, last_installment, effective_rate_desc)
+
+
+            let caArray = [];
+            for (let key in qeYearly) {
+                let firstInitialAllowance = Math.round((qeYearly[key] * initialAllowanceRate / MaxAllowancePercent) * 100) / 100;
+                let firstAnnualAllowance = Math.round((qeYearly[key] * annualAllowanceRate / MaxAllowancePercent) * 100) / 100;
+                let leftPercent = (MaxAllowancePercent - initialAllowanceRate - annualAllowanceRate) / MaxAllowancePercent;
+                key = parseInt(key)
+                let year = key;
+                let yearExist = false;
+                let caRec;
+
+                for (let caObject of caArray) {
+                    if (caObject.year == key) {
+                        yearExist = true;
+                        caObject.IA = firstInitialAllowance;
+                        caObject.AA = Math.round((caObject.AA + firstAnnualAllowance) * 100) / 100;
+                        caRec = caObject;
+                        break;
+                    }
+                }
+                if (!yearExist) {
+                    caRec = { year: key, IARate: initialAllowanceRate, AARate: annualAllowanceRate, IA: firstInitialAllowance, AA: firstAnnualAllowance };
+                    caArray.push(caRec);
+                }
+
+                caRec.qeAddition = qeYearly[key];
+                caRec.taxAddition = qeYearly[key];
+
+                while (leftPercent > 0) {
+
+                    let yearExist = false;
+                    let annualAllowance = 0;
+
+                    if (leftPercent < (annualAllowanceRate / MaxAllowancePercent)) {
+                        annualAllowance = Math.round((qeYearly[key] * leftPercent) * 100) / 100;;
+                    } else {
+                        annualAllowance = Math.round((qeYearly[key] * annualAllowanceRate / MaxAllowancePercent) * 100) / 100;
+                    }
+
+                    year++;
+                    for (let caObject of caArray) {
+                        if (caObject.year == year) {
+                            yearExist = true;
+                            caObject.AA = Math.round((caObject.AA + annualAllowance) * 100) / 100;
+                            caObject.qeCfwd = Math.round((caObject.qeCfwd + qeYearly[key]) * 100) / 100;
+                            break;
+                        }
+                    }
+                    if (!yearExist) {
+                        let caRec = { year: year, qeCfwd: qeYearly[key], IARate: initialAllowanceRate, AARate: annualAllowanceRate, AA: annualAllowance };
+                        caArray.push(caRec);
+                    }
+                    leftPercent = Math.round((leftPercent - (annualAllowanceRate / MaxAllowancePercent)) * 100) / 100;
+                }
+            }
+
+
+            let previousQE = 0;
+            let taxCfwd = 0;
+            let qeAddition = 'qeAddition';
+            let qeBfwd = 0;
+            for (let caObject of caArray) {
+                let allowance = 0;
+                if (caObject.hasOwnProperty(qeAddition)) {
+                    caObject.totalqe = previousQE + caObject[qeAddition];
+                    caObject.taxTotal = taxCfwd + caObject[qeAddition];
+                    allowance = caObject.IA + caObject.AA;
+                } else {
+                    caObject.totalqe = previousQE;
+                    caObject.taxTotal = taxCfwd;
+                    allowance = caObject.AA;
+                }
+                caObject.qeBfwd = qeBfwd;
+                qeBfwd = caObject.totalqe;
+                previousQE = caObject.totalqe;
+                caObject.taxBfwd = taxCfwd;
+                taxCfwd = caObject.taxTotal - allowance;
+                caObject.taxCfwd = taxCfwd;
+            }
+            return caArray;
+
+        }
+
+        // Function to calculate qualifying expenditure incurred every year if got installment
+        function calculateQualifyingExpenditure(FinancialMonth, acquireYear, acquireMonth, downPayment, open_balance, allowanceEligible, numInstallment, repayment, last_installment, effective_rate_desc) {
+            let remaining_open_balance = open_balance;
+            let numInstallmentLeft = numInstallment;
+            let qeYearly = {};
+
+
+
+            let year = acquireYear;
+
+            if (FinancialMonth[months[acquireMonth]] != 0 && remaining_open_balance > 0) {
+                let qualifying_expenditure = 0;
+                let firstYearMonths = 0;
+
+                firstYearMonths = 12 - FinancialMonth[months[acquireMonth]];
+                for (let i = 0; i < firstYearMonths; i++) {
+                    const capital_repayment = repayment - (remaining_open_balance * effective_rate_desc) / 12;
+                    qualifying_expenditure += capital_repayment;
+                    remaining_open_balance -= capital_repayment;
+                    numInstallmentLeft--;
+                }
+
+                if (remaining_open_balance < 0) {
+                    qeYearly[acquireYear] = open_balance;
+                }
+                else {
+                    qeYearly[acquireYear] = qualifying_expenditure;
+                }
+                year++;
+            }
+
+            let previous_open_balance = remaining_open_balance
+            while (numInstallmentLeft > 0 && remaining_open_balance > 0) {
+                var qualifying_expenditure = 0;
+                for (let numMonth = 0; numMonth < 12 && numInstallmentLeft > 1; numMonth++) {
+                    let capital_repayment = repayment - (remaining_open_balance * effective_rate_desc) / 12;
+                    qualifying_expenditure += capital_repayment;
+                    remaining_open_balance -= capital_repayment;
+                    numInstallmentLeft--;
+                }
+                if (numInstallmentLeft == 1) {
+                    let capital_repayment = last_installment - (remaining_open_balance * effective_rate_desc) / 12;
+                    qualifying_expenditure += capital_repayment;
+                    remaining_open_balance -= capital_repayment;
+                    numInstallmentLeft--;
+                }
+
+                if (remaining_open_balance < 0) {
+                    qeYearly[year] = Math.round(previous_open_balance * 100) / 100;
+
+                } else {
+                    qeYearly[year] = Math.round(qualifying_expenditure * 100) / 100;
+                }
+
+                previous_open_balance = remaining_open_balance;
+                year++;
+            }
+
+            if (open_balance > 0) {
+                qeYearly[acquireYear] = parseFloat(qeYearly[acquireYear]) + parseFloat(downPayment);
+            } else {
+                qeYearly[acquireYear] = allowanceEligible;
+            }
+            return qeYearly;
+        }
+
+        // Function to create a table row with keys and values from an object
+        function createDetailTableRow(table, dataObject) {
+            let columnOrder = ['year', 'qeBfwd', 'qeAddition', 'totalqe', 'taxBfwd', 'taxAddition', 'taxTotal', 'IARate', 'IA', 'AARate', 'AA', 'taxCfwd'];
+            let row = table.insertRow(); // Create a table row
+
+            for (let column of columnOrder) {
+                let cellValue = row.insertCell(); // Create a cell for the value
+                if (dataObject.hasOwnProperty(column)) {
+                    cellValue.textContent = Math.round(dataObject[column]);
+                } else {
+                    cellValue.textContent = '-';
+                }
+            }
+        }
+
+        function createDetailTable(caArray) {
+            let myTable = document.getElementById("tableBody");
+            document.getElementById("tableBody").innerHTML = '';
+            for (let i = 0; i < caArray.length; i++) {
+                createDetailTableRow(myTable, caArray[i]);
+            }
+        }
+
+        // Function to create a table row with keys and values from an object
+        function createSummaryTableRow(table, dataObject) {
+            let columnOrder = ['year', 'qeCfwd', 'taxBfwd', 'qeAddition', 'IA', 'AA', 'taxCfwd'];
+            let row = table.insertRow(); // Create a table row
+
+            for (let column of columnOrder) {
+                let cellValue = row.insertCell(); // Create a cell for the value
+                if (dataObject.hasOwnProperty(column)) {
+                    cellValue.textContent = Math.round(dataObject[column]);
+                } else {
+                    cellValue.textContent = '-';
+                }
+                cellValue.classList.add(column);
+            }
+        }
+
+        function createSummaryTable(caArray) {
+            let myTable = document.getElementById("summaryTableBody");
+            myTable.innerHTML = '';
+            for (let i = 0; i < caArray.length; i++) {
+                createSummaryTableRow(myTable, caArray[i]);
+            }
+            let guideIA = "Additional x " + $("#iaRate").val() + "% (I.A Rate)";
+            let guideAA = "(Qualifying Expenditure + Additional) x " + $("#aaRate").val() + "% (A.A Rate)";
+            $('#tooltipIA').attr('data-content', guideIA);
+            $('#tooltipAA').attr('data-content', guideAA);
+        }
+
+        // Function to create a table row with keys and values from an object
+        function createAccordianTableRow(accordianItem, dataObject) {
+            let columnOrder = ['year', 'qeCfwd', 'taxBfwd', 'qeAddition', 'IA', 'AA', 'taxCfwd'];
+            let target = ['accordion-year', 'accordion-QE', 'accordion-TWBF', 'accordion-Add', 'accordion-IA', 'accordion-AA', 'accordion-TWCF']
+
+            for (let i = 0; i <= columnOrder.length; i++) {
+                if (dataObject.hasOwnProperty(columnOrder[i])) {
+                    console.log(dataObject)
+                    console.log($(`#${accordianItem} .${target[i]}`).html());
+                    $(`#${accordianItem} .${target[i]}`).html(Math.round(dataObject[columnOrder[i]]));
+                } else {
+                    $(`#${accordianItem} .${target[i]}`).parent().hide();
+                    $(`#${accordianItem} .${target[i]}`).parent().removeClass('d-flex');
+                    console.log($(`#${accordianItem} .${target[i]}`).parent());
+                }
+            }
+        }
+
+        function createAccordianTable(caArray) {
+            let myTable = document.getElementById("accordionTable");
+            myTable.innerHTML = '';
+            $('#accordion-guide').removeClass('d-none');
+            let accordionItemRefer = document.getElementById('accordion-item-refer');
+            for (let i = 0; i < caArray.length; i++) {
+                let accordionItem = accordionItemRefer.cloneNode(true);
+                accordionItem.setAttribute('id', `accordionItem-${i}`);
+                accordionItem.setAttribute('style', 'display: block; margin:10px');
+                myTable.append(accordionItem);
+                $(`#accordionItem-${i} .btn-accordion`).attr('data-target', `#collapse-${i}`);
+                $(`#accordionItem-${i} .btn-accordion`).attr('aria-controls', `#collapse-${i}`);
+                $(`#accordionItem-${i} .collapse`).attr('id', `collapse-${i}`);
+                createAccordianTableRow(`accordionItem-${i}`, caArray[i]);
+                console.log(accordionItem)
+            }
+            let guideIA = "Additional x " + $("#iaRate").val() + "% (I.A Rate)";
+            let guideAA = "(Qualifying Expenditure + Additional) x " + $("#aaRate").val() + "% (A.A Rate)";
+            $('#tooltipIAaccordion').attr('data-content', guideIA);
+            $('#tooltipAAaccordion').attr('data-content', guideAA);
+        }
+
+        function calculateEffectiveRate(loan_amount, interest_rate, tenure) {
+
+            var interest_rate_desc = parseFloat(interest_rate / 100);
+
+            var monthly_repayment_original =
+                parseFloat(loan_amount * interest_rate_desc * tenure + loan_amount) / (tenure * 12);
+            //(45000 * 0.04 * 7) +  4500 ... = 685.71
+
+            var total_interest_original = parseFloat(
+                loan_amount * interest_rate_desc * tenure
+            ); //12600
+
+            // Effective interest rate
+            var est_interest_rate = interest_rate * 1.8;
+            var tmpdone = 0;
+            var tmpdtwo = 0;
+
+            for (let step = est_interest_rate; step < 100; step += 0.001) {
+                var stepInc = parseFloat(step.toFixed(4));
+                var stepIncPerc = parseFloat(stepInc / 100);
+                //685.71 * (1-(1/(1.003333^(84)))) = 167.2056916
+                var leftSide =
+                    monthly_repayment_original *
+                    (1 - Math.pow(1 + stepIncPerc / 12, -tenure * 12));
+                //0.3333*45000 = 149.985
+                var rightSide = (stepIncPerc / 12) * loan_amount;
+
+                var objCal = Math.pow(leftSide - rightSide, 2).toFixed(4);
+
+                if (objCal === 0.0) {
+                    var effective_interest_rate = parseFloat(step.toFixed(4));
+                    break;
+                }
+
+                if (tmpdtwo !== 0 && parseFloat(objCal) > parseFloat(tmpdtwo)) {
+                    var effective_interest_rate = parseFloat(step.toFixed(4));
+                    break;
+                }
+
+                tmpdtwo = objCal;
+            }
+
+            var total_amount = Math.round(total_interest_original + loan_amount);
+
+            //----------------------------------------------------------------------
+
+            var calculate_lastcf = (effective_interest_rate) => {
+                let cf = loan_amount;
+                let bf = 0;
+                let repayment = Math.round(monthly_repayment_original);
+                let last_installment = total_amount - repayment * (tenure * 12 - 1); 
+                for (let counter = 1; counter < tenure * 12; counter++) {
+                    bf = cf;
+                    var interest = (bf * (effective_interest_rate / 100)) / 12;
+                    cf = bf - repayment + interest;
+                }
+
+                interest = (cf * (effective_interest_rate / 100)) / 12;
+
+                cf = parseFloat(cf.toFixed(2));
+                interest = parseFloat(interest.toFixed(2));
+                last_installment = parseFloat(last_installment.toFixed(2));
+                var last_cf = cf + interest - last_installment;
+                return last_cf;
+            }
+
+            var last_cf = calculate_lastcf(effective_interest_rate);
+            var stopper = effective_interest_rate;
+
+            if (last_cf === 0) {
+                effective_interest_rate = parseFloat(effective_interest_rate.toFixed(4));
+            } else if (last_cf < 0) {
+                for (let step = effective_interest_rate; step < stopper + 0.5; step += 0.000001) {
+                    step = parseFloat(step.toFixed(6));
+                    last_cf = calculate_lastcf(step);
+                    last_cf = parseFloat(last_cf.toFixed(2));
+                    if (last_cf >= 0.00) {
+                        effective_interest_rate = parseFloat(step.toFixed(6));
+                        break;
+                    }
+                }
+            } else {
+                for (let step = effective_interest_rate; step > stopper - 0.5; step -= 0.000001) {
+                    step = parseFloat(step.toFixed(6));
+                    last_cf = calculate_lastcf(step);
+                    last_cf = parseFloat(last_cf.toFixed(2));
+                    if (last_cf <= 0.00) {
+                        effective_interest_rate = parseFloat(step.toFixed(6));
+                        break;
+                    }
+                }
+            }
+            return effective_interest_rate;
+        }
+    </script>
+    <script>
+        var capitalData = [
+            {
+                "Plant and Machinery": [
+                    {
+                        "assetType": "Heavy Machinery",
+                        "initialAllowance": "20",
+                        "annualAllowance": "20"
+                    },
+                    {
+                        "assetType": "General Plant and Machinery",
+                        "initialAllowance": "20",
+                        "annualAllowance": "14"
+                    },
+                    {
+                        "assetType": "Other",
+                        "initialAllowance": "20",
+                        "annualAllowance": "10"
+                    },
+                    {
+                        "assetType": "ICT equipment, computer software including customised software",
+                        "initialAllowance": "40",
+                        "annualAllowance": "20"
+                    }
+                ]
+            },
+            {
+                "Motor Vehicle": [
+                    {
+                        "assetType": "Commercialized Vehicle",
+                        "initialAllowance": "20",
+                        "annualAllowance": "20"
+                    },
+                    {
+                        "assetType": "Used Non-Commercialized Vehicle",
+                        "initialAllowance": "20",
+                        "annualAllowance": "20",
+                        "allowanceCap": "50000"
+                    },
+                    {
+                        "assetType": "New Non-Commercialized Vehicle with value < 100000",
+                        "initialAllowance": "20",
+                        "annualAllowance": "20",
+                        "allowanceCap": "100000"
+                    },
+                    {
+                        "assetType": "New Non-Commercialized Vehicle with value > 100000",
+                        "initialAllowance": "20",
+                        "annualAllowance": "20",
+                        "allowanceCap": "100000"
+                    },
+                    {
+                        "assetType": "New Non-Commercialized Vehicle with value > 150000",
+                        "initialAllowance": "20",
+                        "annualAllowance": "20",
+                        "allowanceCap": "50000"
+                    }
+                ]
+            },
+            {
+                "Industrial Building": [
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Industrial facilities, Utility Structures, Farm/Mine buildings",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Buildings included in the definition of ‘factory’",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Storage building related structures",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Research building",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Warehouse",
+                        "initialAllowance": "0",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Buildings used for an approved service project",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Buildings on a build-lease-transfer basis",
+                        "initialAllowance": "10",
+                        "annualAllowance": "6"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Buildings for MSC status companies",
+                        "initialAllowance": "0",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Buildings for BioNexus status companies",
+                        "initialAllowance": "0",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Privatization project and private financing buildings",
+                        "initialAllowance": "10",
+                        "annualAllowance": "6"
+                    },
+                    {
+                        "assetGroup": "Commercial Building",
+                        "assetType": "Commercial buildings in TRX for TRX Marquee status company",
+                        "initialAllowance": "0",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Employee Benefit",
+                        "assetType": "Buildings for the facility of employee",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Employee Benefit",
+                        "assetType": "Buildings for worker welfare and employee living quarters on a farm",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Employee Benefit",
+                        "assetType": "Buildings used as living accomodation for employees",
+                        "initialAllowance": "40",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Employee Benefit",
+                        "assetType": "Employee housing in manufacturing, hotel, tourism, or approved services project",
+                        "initialAllowance": "0",
+                        "annualAllowance": "10"
+                    },
+                    {
+                        "assetGroup": "Employee Benefit",
+                        "assetType": "Child care centre provided by an employer",
+                        "initialAllowance": "0",
+                        "annualAllowance": "10"
+                    },
+                    {
+                        "assetGroup": "Public Utilities",
+                        "assetType": "Licensed private hospital, maternity home and nursing home",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Public Utilities",
+                        "assetType": "Hotel",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Public Utilities",
+                        "assetType": "Airport",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Public Utilities",
+                        "assetType": "Motor Racing Circuit",
+                        "initialAllowance": "10",
+                        "annualAllowance": "3"
+                    },
+                    {
+                        "assetGroup": "Public Utilities",
+                        "assetType": "Public Road",
+                        "initialAllowance": "10",
+                        "annualAllowance": "6"
+                    },
+                    {
+                        "assetGroup": "Social Welfares",
+                        "assetType": "Buildings for old folks care centre.",
+                        "initialAllowance": "0",
+                        "annualAllowance": "0"
+                    },
+                    {
+                        "assetGroup": "Social Welfares",
+                        "assetType": "Buildings for kindergarten",
+                        "initialAllowance": "0",
+                        "annualAllowance": "10"
+                    },
+                    {
+                        "assetGroup": "Social Welfares",
+                        "assetType": "Buildings for child care centre",
+                        "initialAllowance": "0",
+                        "annualAllowance": "10"
+                    },
+                    {
+                        "assetGroup": "Education Purpose",
+                        "assetType": "Buildings for schools or educational institutions",
+                        "initialAllowance": "0",
+                        "annualAllowance": "10"
+                    },
+                    {
+                        "assetGroup": "Education Purpose",
+                        "assetType": "Buildings for industrial, technical or vocational training",
+                        "initialAllowance": "0",
+                        "annualAllowance": "10"
+                    }
+                ]
+            }
+        ]
+    </script>
+</body>
+
+</html>
