@@ -1,0 +1,24 @@
+name: currency_rate
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.2.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.6 
+
+  google_nav_bar: ^5.0.6
+  intl: ^0.19.0
+  syncfusion_flutter_charts: ^24.1.46+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
