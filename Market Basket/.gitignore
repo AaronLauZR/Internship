@@ -1,0 +1,16 @@
+*.local
+*.res
+*.identcache
+*.dsk
+*.tvsconfig
+*.dres
+*.tlb
+*.sds
+*Resource.rc
+*.stat
+*.dsv
+__recovery
+*.dcu
+*.exe
+*.drc
+*.map
