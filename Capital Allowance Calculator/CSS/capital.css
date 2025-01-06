@@ -1,0 +1,460 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+#loan_calc .form-control.number {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.286rem;
+  /* font-18 */
+  font-weight: 600;
+}
+
+/* ------------------ Background Colour ------------------*/
+.bgc-purple-100,
+.bg-purple-100 {
+  background-color: #6d3b7e;
+  color: white;
+}
+
+.bg-purple-200 {
+  background-color: #caabdb;
+  color: white;
+}
+
+.bg-purple-300 {
+  background-color: #9e85ac;
+  color: white;
+} 
+
+/* ------------------ Font Colour ------------------*/
+.text-dark h1,
+.text-dark h2,
+.text-dark h3 {
+  color: #333;
+}
+
+/* ----- Common Style ----- */
+.font-24,
+.font-24-force h1,
+.font-24-force h2,
+.font-24-force h3,
+.font-24-force h4,
+.font-24-force h5,
+.font-24-force h6 {
+  font-size: 1.714rem !important;
+}
+
+.wpcf7-form .frm-field label {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.wpcf7-form .submitBtn > input[type="submit"] {
+  border-radius: 8px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.margin-right {
+  margin-right: 10px;
+}
+
+/*--- Form ---*/
+.form-control.default.disabled {
+  opacity: 60%;
+}
+
+.wpcf7-form
+  .frm-field
+  input:not([type="submit"]):not([type="checkbox"]):not([type="file"]),
+.wpcf7 .frm-field .wpcf7-select,
+#pcb-calc .form-control.default,
+#pcb-calcM .form-control.default,
+.form-control.default {
+  border: none !important;
+  background-color: #f2f2f4 !important;
+  border-radius: 8px !important;
+  height: 40px !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  margin-top: 0.5rem;
+}
+
+.wpcf7 .frm-field input[type="file"] {
+  border: none !important;
+  background-color: #f2f2f4 !important;
+  border-radius: 8px !important;
+  height: 40px !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  margin-top: 0.5rem !important;
+}
+
+.form-control.number {
+  text-align-last: right !important;
+}
+
+.form-control.mt0 {
+  margin-top: 0 !important;
+}
+
+.form-control.readonly {
+  background-color: transparent !important;
+}
+
+.form-control.readonly:focus,
+.form-control.readonly:active {
+  box-shadow: none !important;
+}
+
+/*Opacity*/
+.opacity-0 {
+  opacity: 0 !important;
+}
+
+/*Button*/
+.btn {
+  letter-spacing: 2px;
+  padding: 15px 15px !important;
+  white-space: normal !important;
+}
+
+#btnCalculate {
+  margin: 5px 10px;
+  letter-spacing: 2px;
+  padding: 15px 35px !important;
+  white-space: normal !important;
+}
+
+.purple-btn {
+  color: white !important;
+  border-radius: 0px;
+  background-color: #5343c2 !important;
+  border: solid 1px #5343c2 !important;
+}
+
+.purple-btn:hover {
+  background-color: #473e9f !important;
+  border: solid 1px #473e9f !important;
+  color: white !important;
+  border-radius: 0px;
+}
+
+/* ------------------------------------------------------------------------------ Font Weight    */
+
+.font-weight-400,
+.font-weight-400 h1,
+.font-weight-400 h2,
+.font-weight-400 h3 {
+  font-weight: 400 !important;
+}
+
+.font-weight-500,
+.font-weight-500 h1,
+.font-weight-500 h2,
+.font-weight-500 h3 {
+  font-weight: 500 !important;
+}
+
+.font-weight-600,
+.font-weight-600 h1,
+.font-weight-600 h2,
+.font-weight-600 h3 {
+  font-weight: 600 !important;
+}
+
+.font-weight-700,
+.font-weight-700 h1,
+.font-weight-700 h2,
+.font-weight-700 h3 {
+  font-weight: 700 !important;
+}
+
+.font-weight-800,
+.font-weight-800 h1,
+.font-weight-800 h2,
+.font-weight-800 h3 {
+  font-weight: 800 !important;
+}
+
+.font-weight-900,
+.font-weight-900 h1,
+.font-weight-900 h2,
+.font-weight-900 h3 {
+  font-weight: 900 !important;
+}
+/*table format*/
+#result_table tbody tr td:first-child {
+  background-color: #f9efff;
+}
+
+#result_table tbody {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.expandResult {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+
+.accordion-header {
+  background-color: #e8dff4 !important;
+}
+
+.accordionResult :hover {
+  text-decoration: none !important;
+  color: #6a3e7f !important;
+}
+
+.accordionResult :focus {
+  text-decoration: none !important;
+  color: #6a3e7f !important;
+}
+
+.headerTitle {
+  color: black !important;
+}
+
+.hidden-result {
+  display: none;
+}
+
+.input-group {
+  position: relative;
+}
+
+.invalid-feedback {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+.p-2 {
+  padding: 10px;
+}
+
+.mb-2 {
+  margin-bottom: 10px;
+}
+
+.custom-checkbox.checkbox-right > .custom-control-input {
+  position: absolute;
+  outline: none;
+  opacity: 0;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before,
+#pcb-calcM
+  .custom-checkbox
+  .custom-control-input:checked
+  ~ .custom-control-label::before {
+  border-color: #9d5fe2;
+  background-color: #9d5fe2;
+}
+
+.wpcf7-form .frm-field .wpcf7-radio > .wpcf7-list-item,
+#pcb-calc .radio-wrap .form-check-inline,
+#pcb-calcM .radio-wrap .form-check-inline {
+  display: flex;
+  margin: 0px !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+.wpcf7-form .frm-field .wpcf7-radio .wpcf7-list-item label,
+#pcb-calc .radio-wrap .form-check-inline label,
+#pcb-calcM .radio-wrap .form-check-inline label {
+  margin: 0px !important;
+  height: 100% !important;
+}
+
+.form-control-sm.custom-control.custom-checkbox {
+  padding-left: 0;
+}
+
+.custom-checkbox.checkbox-right > .custom-control-input {
+  position: absolute;
+  outline: none;
+  opacity: 0;
+}
+
+.custom-checkbox,
+#pcb-calcM .custom-checkbox {
+  min-height: 40px !important;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before,
+#pcb-calcM
+  .custom-checkbox
+  .custom-control-input:checked
+  ~ .custom-control-label::before {
+  border-color: #9d5fe2;
+  background-color: #9d5fe2;
+}
+
+.form-control-sm > .custom-control-label::before,
+.form-control-sm > .custom-control-label::after {
+  width: 1.1rem;
+  height: 1.1rem;
+  top: 0.3rem;
+}
+
+.form-control-sm.custom-control.custom-checkbox {
+  padding-left: 0;
+}
+
+.form-control-sm > label.custom-control-label {
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.form-control-sm > label.custom-control-label::before,
+.form-control-sm > label.custom-control-label::after {
+  right: 0;
+  left: auto;
+}
+
+/* Style for the dropdown button */
+.IA, .AA {
+  background-color : #E0CCBE;  
+}
+
+.qeCfwd {
+  background-color: #EEEDEB;
+  text-align: center;
+}
+
+#disposalContainer {
+  width: 50%;
+  align-items:center ;
+}
+#disposalTable th {
+  width: 50%;
+}
+
+#disposalTable td {
+  width: 50%;
+}
+
+th, td{
+  text-align:center !important;
+}
+#assetTypeDropdown {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
+}
+
+.dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  border: 1px solid #c6c6c6;
+  width: inherit;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.dropdown-item {
+  padding-top: 0px !important;
+}
+
+#assetTypeContainer {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* scrollbar design */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.dropdown-menu::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+#dropdownText {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: calc(92.2%);
+  display: block;
+  color: black;
+}
+
+.bx {
+  flex-shrink: 0;
+}
+
+.dropdown-header {
+  font-weight: semi-bold;
+  font-size: 16px !important;
+  height: 25px;
+  text-align: left;
+  padding-left: 20px !important; 
+  padding-top:3px !important; 
+  padding-bottom:0px !important; 
+  color: lightgrey !important; 
+  font-weight: semi-bold; 
+}
+
+.dropdown-menu {
+  max-height: 300px;
+  z-index: 1000;
+  border: 1px solid #c6c6c6;
+  width: inherit;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.dropdown-item.type-item {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 20px;
+  height: 25px;
+}
+
+.dropdown-item.type-item:hover {
+  background-color: #336ad3;
+  color: white;
+  padding-top: 0px;
+}
+
+.btn {
+  margin: 5px 10px;
+  letter-spacing: 2px;
+  padding: 15px 35px !important;
+  white-space: normal !important;
+}
+
+.dark-outline-btn {
+  color: #333 !important;
+  border-radius: 0px;
+  background-color: transparent;
+  border: solid 1px #333 !important;
+}
+
+.dark-outline-btn:hover {
+  background-color: #eeeeee;
+}

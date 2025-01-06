@@ -1,0 +1,59 @@
+@media print {
+  body {
+    color: black !important;
+  }
+  /* All your print styles go here */
+  #header,
+  #footer,
+  #nav {
+    display: none !important;
+  }
+  /* All your print styles go here */
+  #header,
+  #footer,
+  #nav {
+      display: none !important;
+  }
+
+
+  /* #caTable {
+      border-color: black !important;
+  } */
+
+  #caTable tr:first-child th {
+      border-top-color: black !important;
+      border-right-color: black !important;
+      border-left-color: black !important;
+      border-bottom-color: black !important;
+
+  }
+
+  #caTable tr:nth-child(2) th:nth-child(3),
+  #caTable tr:nth-child(2) th:nth-child(6),
+  #caTable tr:nth-child(2) th:nth-last-of-type(1) {
+      border-right-color: black !important;
+  }
+
+
+  #caTable tr:nth-child(2) th,
+  #caTable tr:first-child th:nth-last-of-type(1) {
+      border-bottom-color: black !important;
+  }
+
+  #caTable tr td:nth-child(1) {
+      border-right-color: black !important;
+      border-left-color: black !important;
+  }
+
+  #caTable tr td:nth-child(4),
+  #caTable tr td:nth-child(7),
+  #caTable tr td:nth-child(11),
+  #caTable tr td:nth-child(12) {
+      border-right-color: black !important;
+  }
+
+  #caTable {
+      border-bottom: 2px solid black !important;
+  }
+}
+ 
